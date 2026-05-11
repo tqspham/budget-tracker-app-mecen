@@ -5,6 +5,7 @@ import { useBudgetStore, Budget } from '@/lib/budgetStore';
 import AddBudgetButton from './AddBudgetButton';
 import BudgetList from './BudgetList';
 import BudgetForm from './BudgetForm';
+import BudgetCharts from './BudgetCharts';
 
 export default function Dashboard() {
   const [showForm, setShowForm] = useState(false);
@@ -64,6 +65,8 @@ export default function Dashboard() {
           {error}
         </div>
       )}
+
+      <BudgetCharts budgets={budgets} />
 
       <div className="bg-white rounded-lg shadow-md p-8">
         <div className="flex justify-between items-center mb-6">

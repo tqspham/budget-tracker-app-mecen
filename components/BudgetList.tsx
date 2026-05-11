@@ -9,6 +9,15 @@ interface BudgetListProps {
   onEdit: (budget: Budget) => void;
 }
 
+function formatDate(dateString: string): string {
+  if (!dateString) return '';
+  const date = new Date(dateString);
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  const year = date.getFullYear();
+  return `${month}/${day}/${year}`;
+}
+
 export default function BudgetList({ budgets, isLoading, onEdit }: BudgetListProps) {
   const { isDeleting, deleteBudget } = useBudgetStore();
 
@@ -42,7 +51,8 @@ export default function BudgetList({ budgets, isLoading, onEdit }: BudgetListPro
           <tr className="border-b-2 border-gray-300 bg-gray-50">
             <th className="text-left py-3 px-4 font-semibold text-gray-800">Budget Name</th>
             <th className="text-right py-3 px-4 font-semibold text-gray-800">Allocated Amount</th>
-            <th className="text-right py-3 px-4 font-semibold text-gray-800">Spent Amount</th>
+            <th className="text-left py-3 px-4 font-semibold text-gray-800">Category</th>
+            <th className="text-left py-3 px-4 font-semibold text-gray-800">Date</th>
             <th className="text-right py-3 px-4 font-semibold text-gray-800">Actions</th>
           </tr>
         </thead>
@@ -51,7 +61,8 @@ export default function BudgetList({ budgets, isLoading, onEdit }: BudgetListPro
             <tr key={budget.id} className="border-b border-gray-200 hover:bg-gray-50 transition">
               <td className="py-3 px-4 text-gray-800">{budget.name}</td>
               <td className="text-right py-3 px-4 text-gray-800">${budget.allocated_amount.toFixed(2)}</td>
-              <td className="text-right py-3 px-4 text-gray-600">$0.00</td>
+              <td className="py-3 px-4 text-gray-800">{budget.category || 'Other'}</td>
+              <td className="py-3 px-4 text-gray-800">{formatDate(budget.budget_date)}</td>
               <td className="text-right py-3 px-4">
                 <div className="flex justify-end gap-2">
                   <button

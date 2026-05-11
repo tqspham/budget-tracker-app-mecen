@@ -1,6 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabase';
 
+const VALID_CATEGORIES = [
+  'Housing',
+  'Food',
+  'Transportation',
+  'Entertainment',
+  'Utilities',
+  'Healthcare',
+  'Other',
+];
+
 export async function GET(
   request: NextRequest,
   { params }: { params: { id: string } }
@@ -15,7 +25,6 @@ export async function GET(
       );
     }
 
-    // Get user from session
     const { data: session, error: sessionError } = await supabase
       .from('budget_tracker_app_mecen_sessions')
       .select('user_id')
@@ -29,7 +38,6 @@ export async function GET(
       );
     }
 
-    // Fetch budget
     const { data: budget, error: fetchError } = await supabase
       .from('budget_tracker_app_mecen_budgets')
       .select('*')
@@ -70,7 +78,6 @@ export async function PUT(
       );
     }
 
-    // Get user from session
     const { data: session, error: sessionError } = await supabase
       .from('budget_tracker_app_mecen_sessions')
       .select('user_id')
@@ -84,7 +91,6 @@ export async function PUT(
       );
     }
 
-    // Verify budget exists and belongs to user
     const { data: existingBudget, error: fetchError } = await supabase
       .from('budget_tracker_app_mecen_budgets')
       .select('id')
@@ -99,9 +105,8 @@ export async function PUT(
       );
     }
 
-    const { name, allocated_amount } = await request.json();
+    const { name, allocated_amount, category, budget_date } = await request.json();
 
-    // Validate input
     if (!name || !name.trim()) {
       return NextResponse.json(
         { success: false, error: 'Budget name is required' },
@@ -124,12 +129,35 @@ export async function PUT(
       );
     }
 
-    // Update budget
+    if (!category || !VALID_CATEGORIES.includes(category)) {
+      return NextResponse.json(
+        { success: false, error: 'Invalid category' },
+        { status: 400 }
+      );
+    }
+
+    if (!budget_date) {
+      return NextResponse.json(
+        { success: false, error: 'Budget date is required' },
+        { status: 400 }
+      );
+    }
+
+    const dateObj = new Date(budget_date);
+    if (isNaN(dateObj.getTime())) {
+      return NextResponse.json(
+        { success: false, error: 'Invalid budget date' },
+        { status: 400 }
+      );
+    }
+
     const { data: budget, error: updateError } = await supabase
       .from('budget_tracker_app_mecen_budgets')
       .update({
         name: name.trim(),
         allocated_amount: amount,
+        category,
+        budget_date,
       })
       .eq('id', params.id)
       .eq('user_id', session.user_id)
@@ -169,7 +197,6 @@ export async function DELETE(
       );
     }
 
-    // Get user from session
     const { data: session, error: sessionError } = await supabase
       .from('budget_tracker_app_mecen_sessions')
       .select('user_id')
@@ -183,7 +210,6 @@ export async function DELETE(
       );
     }
 
-    // Verify budget exists and belongs to user
     const { data: existingBudget, error: fetchError } = await supabase
       .from('budget_tracker_app_mecen_budgets')
       .select('id')
@@ -198,7 +224,6 @@ export async function DELETE(
       );
     }
 
-    // Delete budget
     const { error: deleteError } = await supabase
       .from('budget_tracker_app_mecen_budgets')
       .delete()

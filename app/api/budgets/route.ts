@@ -1,6 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabase';
 
+const VALID_CATEGORIES = [
+  'Housing',
+  'Food',
+  'Transportation',
+  'Entertainment',
+  'Utilities',
+  'Healthcare',
+  'Other',
+];
+
 export async function GET(request: NextRequest) {
   try {
     const token = request.cookies.get('sessionToken')?.value;
@@ -12,7 +22,6 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    // Get user from session
     const { data: session, error: sessionError } = await supabase
       .from('budget_tracker_app_mecen_sessions')
       .select('user_id')
@@ -26,7 +35,6 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    // Fetch budgets for user
     const { data: budgets, error: fetchError } = await supabase
       .from('budget_tracker_app_mecen_budgets')
       .select('*')
@@ -63,7 +71,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Get user from session
     const { data: session, error: sessionError } = await supabase
       .from('budget_tracker_app_mecen_sessions')
       .select('user_id')
@@ -77,9 +84,8 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const { name, allocated_amount } = await request.json();
+    const { name, allocated_amount, category, budget_date } = await request.json();
 
-    // Validate input
     if (!name || !name.trim()) {
       return NextResponse.json(
         { success: false, error: 'Budget name is required' },
@@ -102,7 +108,28 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Create budget
+    if (!category || !VALID_CATEGORIES.includes(category)) {
+      return NextResponse.json(
+        { success: false, error: 'Invalid category' },
+        { status: 400 }
+      );
+    }
+
+    if (!budget_date) {
+      return NextResponse.json(
+        { success: false, error: 'Budget date is required' },
+        { status: 400 }
+      );
+    }
+
+    const dateObj = new Date(budget_date);
+    if (isNaN(dateObj.getTime())) {
+      return NextResponse.json(
+        { success: false, error: 'Invalid budget date' },
+        { status: 400 }
+      );
+    }
+
     const { data: budget, error: createError } = await supabase
       .from('budget_tracker_app_mecen_budgets')
       .insert([
@@ -110,6 +137,8 @@ export async function POST(request: NextRequest) {
           user_id: session.user_id,
           name: name.trim(),
           allocated_amount: amount,
+          category,
+          budget_date,
         },
       ])
       .select('*')

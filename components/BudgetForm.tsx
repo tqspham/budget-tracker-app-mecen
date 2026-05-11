@@ -3,6 +3,16 @@
 import { useState, useEffect } from 'react';
 import { useBudgetStore, Budget } from '@/lib/budgetStore';
 
+const BUDGET_CATEGORIES = [
+  'Housing',
+  'Food',
+  'Transportation',
+  'Entertainment',
+  'Utilities',
+  'Healthcare',
+  'Other',
+];
+
 interface BudgetFormProps {
   budget?: Budget | null;
   onClose: () => void;
@@ -11,6 +21,8 @@ interface BudgetFormProps {
 export default function BudgetForm({ budget, onClose }: BudgetFormProps) {
   const [name, setName] = useState('');
   const [allocatedAmount, setAllocatedAmount] = useState('');
+  const [category, setCategory] = useState('Other');
+  const [budgetDate, setBudgetDate] = useState('');
   const [localError, setLocalError] = useState('');
   const { isCreating, isEditing, createBudget, updateBudget } = useBudgetStore();
   const isLoading = isCreating || isEditing;
@@ -19,9 +31,13 @@ export default function BudgetForm({ budget, onClose }: BudgetFormProps) {
     if (budget) {
       setName(budget.name);
       setAllocatedAmount(budget.allocated_amount.toString());
+      setCategory(budget.category || 'Other');
+      setBudgetDate(budget.budget_date || '');
     } else {
       setName('');
       setAllocatedAmount('');
+      setCategory('Other');
+      setBudgetDate(new Date().toISOString().split('T')[0]);
     }
     setLocalError('');
   }, [budget]);
@@ -40,6 +56,14 @@ export default function BudgetForm({ budget, onClose }: BudgetFormProps) {
       setLocalError('Allocated amount must be a positive number');
       return false;
     }
+    if (!category) {
+      setLocalError('Category is required');
+      return false;
+    }
+    if (!budgetDate) {
+      setLocalError('Budget date is required');
+      return false;
+    }
     return true;
   };
 
@@ -54,12 +78,12 @@ export default function BudgetForm({ budget, onClose }: BudgetFormProps) {
     const amount = parseFloat(allocatedAmount);
 
     if (budget) {
-      const result = await updateBudget(budget.id, name, amount);
+      const result = await updateBudget(budget.id, name, amount, category, budgetDate);
       if (result) {
         onClose();
       }
     } else {
-      const result = await createBudget(name, amount);
+      const result = await createBudget(name, amount, category, budgetDate);
       if (result) {
         onClose();
       }
@@ -109,6 +133,39 @@ export default function BudgetForm({ budget, onClose }: BudgetFormProps) {
               min="0"
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-100 disabled:cursor-not-allowed"
               placeholder="0.00"
+            />
+          </div>
+
+          <div>
+            <label htmlFor="category" className="block text-sm font-medium text-gray-700 mb-1">
+              Category
+            </label>
+            <select
+              id="category"
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+              disabled={isLoading}
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-100 disabled:cursor-not-allowed"
+            >
+              {BUDGET_CATEGORIES.map((cat) => (
+                <option key={cat} value={cat}>
+                  {cat}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div>
+            <label htmlFor="budgetDate" className="block text-sm font-medium text-gray-700 mb-1">
+              Budget Date
+            </label>
+            <input
+              type="date"
+              id="budgetDate"
+              value={budgetDate}
+              onChange={(e) => setBudgetDate(e.target.value)}
+              disabled={isLoading}
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-100 disabled:cursor-not-allowed"
             />
           </div>
 

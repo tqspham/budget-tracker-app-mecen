@@ -5,6 +5,8 @@ export interface Budget {
   user_id: string;
   name: string;
   allocated_amount: number;
+  category: string;
+  budget_date: string;
   created_at: string;
   updated_at: string;
 }
@@ -27,8 +29,8 @@ interface BudgetStore {
   setSuccessMessage: (message: string | null) => void;
 
   fetchBudgets: () => Promise<void>;
-  createBudget: (name: string, allocated_amount: number) => Promise<Budget | null>;
-  updateBudget: (id: string, name: string, allocated_amount: number) => Promise<Budget | null>;
+  createBudget: (name: string, allocated_amount: number, category: string, budget_date: string) => Promise<Budget | null>;
+  updateBudget: (id: string, name: string, allocated_amount: number, category: string, budget_date: string) => Promise<Budget | null>;
   deleteBudget: (id: string) => Promise<boolean>;
 }
 
@@ -70,13 +72,13 @@ export const useBudgetStore = create<BudgetStore>((set, get) => ({
     }
   },
 
-  createBudget: async (name, allocated_amount) => {
+  createBudget: async (name, allocated_amount, category, budget_date) => {
     set({ isCreating: true, error: null });
     try {
       const response = await fetch('/api/budgets', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, allocated_amount }),
+        body: JSON.stringify({ name, allocated_amount, category, budget_date }),
         credentials: 'include',
       });
 
@@ -100,13 +102,13 @@ export const useBudgetStore = create<BudgetStore>((set, get) => ({
     }
   },
 
-  updateBudget: async (id, name, allocated_amount) => {
+  updateBudget: async (id, name, allocated_amount, category, budget_date) => {
     set({ isEditing: true, error: null });
     try {
       const response = await fetch(`/api/budgets/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, allocated_amount }),
+        body: JSON.stringify({ name, allocated_amount, category, budget_date }),
         credentials: 'include',
       });
 
