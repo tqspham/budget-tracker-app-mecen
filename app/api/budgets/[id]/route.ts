@@ -13,9 +13,11 @@ const VALID_CATEGORIES = [
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await context.params;
+
     const token = request.cookies.get('sessionToken')?.value;
 
     if (!token) {
@@ -41,7 +43,7 @@ export async function GET(
     const { data: budget, error: fetchError } = await supabase
       .from('budget_tracker_app_mecen_budgets')
       .select('*')
-      .eq('id', params.id)
+      .eq('id', id)
       .eq('user_id', session.user_id)
       .single();
 
@@ -66,9 +68,11 @@ export async function GET(
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await context.params;
+
     const token = request.cookies.get('sessionToken')?.value;
 
     if (!token) {
@@ -94,7 +98,7 @@ export async function PUT(
     const { data: existingBudget, error: fetchError } = await supabase
       .from('budget_tracker_app_mecen_budgets')
       .select('id')
-      .eq('id', params.id)
+      .eq('id', id)
       .eq('user_id', session.user_id)
       .single();
 
@@ -159,7 +163,7 @@ export async function PUT(
         category,
         budget_date,
       })
-      .eq('id', params.id)
+      .eq('id', id)
       .eq('user_id', session.user_id)
       .select('*')
       .single();
@@ -185,9 +189,11 @@ export async function PUT(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await context.params;
+
     const token = request.cookies.get('sessionToken')?.value;
 
     if (!token) {
@@ -213,7 +219,7 @@ export async function DELETE(
     const { data: existingBudget, error: fetchError } = await supabase
       .from('budget_tracker_app_mecen_budgets')
       .select('id')
-      .eq('id', params.id)
+      .eq('id', id)
       .eq('user_id', session.user_id)
       .single();
 
@@ -227,7 +233,7 @@ export async function DELETE(
     const { error: deleteError } = await supabase
       .from('budget_tracker_app_mecen_budgets')
       .delete()
-      .eq('id', params.id)
+      .eq('id', id)
       .eq('user_id', session.user_id);
 
     if (deleteError) {
