@@ -141,7 +141,7 @@ function LineChartRefined({ data }: { data: DateAggregate[] }): JSX.Element {
   const minValue = 0;
   const range = maxValue - minValue || 1;
 
-  const padding = 40;
+  const padding = 12;
   const width = 160;
   const height = 90;
   const chartWidth = width - 2 * padding;
