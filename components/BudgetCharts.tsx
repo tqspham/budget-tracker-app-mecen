@@ -52,18 +52,18 @@ function formatDateShort(dateString: string): string {
 function PieChartRefined({ data }: { data: CategoryAggregate[] }): JSX.Element {
   if (data.length === 0) {
     return (
-      <div className="flex items-center justify-center h-64 bg-[var(--color-background)] rounded-lg">
-        <p className="text-[var(--color-muted-text)] text-sm">No data available yet</p>
+      <div className="flex items-center justify-center h-64 bg-(--color-background) rounded">
+        <p className="text-(--color-muted-text) text-sm">No data available yet</p>
       </div>
     );
   }
 
   const total = data.reduce((sum, item) => sum + item.total, 0);
   const colors = [
-    '#2BA89D',
-    '#6B8E8A',
-    '#747470',
-    '#C8944C',
+    '#D97651',
+    '#7A6E68',
+    '#8B8480',
+    '#C89449',
   ];
 
   let cumulativePercent = 0;
@@ -117,8 +117,8 @@ function PieChartRefined({ data }: { data: CategoryAggregate[] }): JSX.Element {
               style={{ backgroundColor: segment.color }}
             />
             <div className="flex-1 min-w-0">
-              <p className="font-semibold text-[var(--color-text)] text-sm">{segment.label}</p>
-              <p className="text-[var(--color-muted-text)] text-xs font-mono">{formatCurrency(segment.value)}</p>
+              <p className="font-semibold text-(--color-text) text-sm">{segment.label}</p>
+              <p className="text-(--color-muted-text) text-xs font-mono">{formatCurrency(segment.value)}</p>
             </div>
           </div>
         ))}
@@ -130,8 +130,8 @@ function PieChartRefined({ data }: { data: CategoryAggregate[] }): JSX.Element {
 function LineChartRefined({ data }: { data: DateAggregate[] }): JSX.Element {
   if (data.length === 0) {
     return (
-      <div className="flex items-center justify-center h-full bg-[var(--color-background)] rounded-lg">
-        <p className="text-[var(--color-muted-text)] text-sm">No data available yet</p>
+      <div className="flex items-center justify-center h-full bg-(--color-background) rounded">
+        <p className="text-(--color-muted-text) text-sm">No data available yet</p>
       </div>
     );
   }
@@ -154,15 +154,15 @@ function LineChartRefined({ data }: { data: DateAggregate[] }): JSX.Element {
 
   const pathData = points.map((p, idx) => `${idx === 0 ? 'M' : 'L'} ${p.x} ${p.y}`).join(' ');
 
-  const gridLineColor = 'rgba(229, 225, 219, 0.3)';
+  const gridLineColor = 'rgba(224, 217, 208, 0.4)';
 
   return (
     <div className="space-y-4 h-full flex flex-col">
-      <svg viewBox={`0 0 ${width} ${height}`} className="w-full h-full bg-white rounded-lg border border-[var(--color-border)] flex-1">
+      <svg viewBox={`0 0 ${width} ${height}`} className="w-full h-full bg-(--color-surface) rounded border border-(--color-border) flex-1">
         <defs>
           <linearGradient id="areaGradientRefined" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" style={{ stopColor: '#2BA89D', stopOpacity: 0.08 }} />
-            <stop offset="100%" style={{ stopColor: '#2BA89D', stopOpacity: 0 }} />
+            <stop offset="0%" style={{ stopColor: '#D97651', stopOpacity: 0.08 }} />
+            <stop offset="100%" style={{ stopColor: '#D97651', stopOpacity: 0 }} />
           </linearGradient>
         </defs>
 
@@ -215,7 +215,7 @@ function LineChartRefined({ data }: { data: DateAggregate[] }): JSX.Element {
         />
 
         {/* Line path */}
-        <path d={pathData} stroke="#2BA89D" strokeWidth="1.2" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+        <path d={pathData} stroke="#D97651" strokeWidth="1.2" fill="none" strokeLinecap="round" strokeLinejoin="round" />
 
         {/* Data points and labels */}
         {points.map((p, idx) => (
@@ -233,16 +233,16 @@ function LineChartRefined({ data }: { data: DateAggregate[] }): JSX.Element {
               cx={p.x}
               cy={p.y}
               r="1.2"
-              fill="#2BA89D"
+              fill="#D97651"
               className="transition-all duration-200 cursor-pointer hover:opacity-80"
-              style={{ filter: 'drop-shadow(0 1px 2px rgba(26, 26, 24, 0.04))' }}
+              style={{ filter: 'drop-shadow(0 1px 2px rgba(26, 26, 24, 0.08))' }}
             />
           </g>
         ))}
       </svg>
-      <div className="text-xs text-[var(--color-muted-text)] px-2">
+      <div className="text-xs text-(--color-muted-text) px-2">
         <p>
-          <span className="font-semibold text-[var(--color-text)]">Total Budgeted:</span> <span className="font-mono">{formatCurrency(data.reduce((sum, d) => sum + d.total, 0))}</span>
+          <span className="font-semibold text-(--color-text)">Total Budgeted:</span> <span className="font-mono">{formatCurrency(data.reduce((sum, d) => sum + d.total, 0))}</span>
         </p>
       </div>
     </div>
@@ -254,16 +254,16 @@ export default function BudgetCharts({ budgets }: { budgets: Budget[] }): JSX.El
   const timeSeriesData = getTimeSeriesData(budgets);
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
       {/* Budget by Category - Left Column (1/3 width on desktop) */}
-      <div className="bg-[var(--color-surface)] rounded-lg border border-[var(--color-border)] p-8 flex flex-col items-center card">
-        <h3 className="text-2xl font-semibold text-[var(--color-primary)] mb-8">Budget by Category</h3>
+      <div className="bg-(--color-surface) rounded border border-(--color-border) p-8 flex flex-col items-center card">
+        <h3 className="text-2xl font-semibold text-(--color-primary) mb-8">Budget by Category</h3>
         <PieChartRefined data={categoryData} />
       </div>
 
       {/* Budget Over Time - Right Column (2/3 width on desktop) */}
-      <div className="md:col-span-2 bg-[var(--color-surface)] rounded-lg border border-[var(--color-border)] p-8 flex flex-col card">
-        <h3 className="text-2xl font-semibold text-[var(--color-primary)] mb-8">Budget Over Time</h3>
+      <div className="lg:col-span-2 bg-(--color-surface) rounded border border-(--color-border) p-8 flex flex-col card">
+        <h3 className="text-2xl font-semibold text-(--color-primary) mb-8">Budget Over Time</h3>
         <LineChartRefined data={timeSeriesData} />
       </div>
     </div>

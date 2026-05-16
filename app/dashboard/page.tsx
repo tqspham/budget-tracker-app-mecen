@@ -40,10 +40,10 @@ export default function DashboardPage() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-[var(--color-background)]">
+      <div className="flex items-center justify-center min-h-screen bg-(--color-background)">
         <div className="text-center">
-          <div className="inline-block spinner-calm rounded-full h-12 w-12 border-4 border-[var(--color-border)] border-t-[var(--color-accent)]"></div>
-          <p className="mt-4 text-[var(--color-muted-text)]">Loading...</p>
+          <div className="inline-block spinner-calm rounded-full h-12 w-12 border-4 border-(--color-border) border-t-(--color-accent)"></div>
+          <p className="mt-4 text-(--color-muted-text)">Loading...</p>
         </div>
       </div>
     );
@@ -54,12 +54,12 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[var(--color-background)]">
-      <nav className="bg-[var(--color-surface)] border-b border-[var(--color-border)]">
-        <div className="max-w-7xl mx-auto px-6 py-3 flex justify-between items-center">
-          <h1 className="text-2xl font-bold text-[var(--color-primary)]">Budget Tracker</h1>
+    <div className="min-h-screen bg-(--color-background)">
+      <nav className="bg-(--color-surface) border-b border-(--color-border)">
+        <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+          <h1 className="text-2xl font-semibold text-(--color-primary)">Budget Tracker</h1>
           <div className="flex items-center gap-6">
-            <span className="text-[var(--color-muted-text)] text-sm">{userEmail}</span>
+            <span className="text-(--color-muted-text) text-sm">{userEmail}</span>
             <LogoutButton />
           </div>
         </div>

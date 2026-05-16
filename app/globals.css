@@ -2,31 +2,29 @@
 
 @layer base {
   :root {
-    /* Palette - Earth-toned, calm, minimalist */
-    --color-background: #FAFAF8;
+    /* Palette - Warm-neutral, data-forward, contemporary finance */
+    --color-background: #F5F3F0;
     --color-surface: #FFFFFF;
-    --color-primary: #0F5E5A;
-    --color-secondary: #6B8E8A;
-    --color-accent: #2BA89D;
-    --color-accent-hover: #238a82;
+    --color-primary: #1A1A18;
+    --color-secondary: #7A6E68;
+    --color-accent: #D97651;
+    --color-accent-hover: #C25E3C;
     --color-text: #1A1A18;
-    --color-muted-text: #747470;
-    --color-border: #E5E1DB;
-    --color-success: #3B8F6C;
-    --color-warning: #C8944C;
-    --color-danger: #A84A3D;
-    --color-danger-hover: #935d52;
+    --color-muted-text: #8B8480;
+    --color-border: #E0D9D0;
+    --color-success: #4A8C6E;
+    --color-warning: #C89449;
+    --color-danger: #B84A3D;
 
-    /* Chart-specific spacing and colors */
-    --chart-padding: 2rem;
-    --chart-gap: 1rem;
-    --chart-color-primary: #2BA89D;
-    --chart-color-secondary: #6B8E8A;
-    --chart-color-tertiary: #747470;
-    --chart-color-accent: #C8944C;
+    /* Chart-specific colors */
+    --chart-color-primary: #D97651;
+    --chart-color-secondary: #7A6E68;
+    --chart-color-tertiary: #8B8480;
+    --chart-color-accent: #C89449;
 
     /* Typography */
     --font-family-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter", "Helvetica Neue", sans-serif;
+    --font-family-mono: "Courier New", monospace;
 
     /* Spacing (8px base unit) */
     --spacing-xs: 0.5rem;
@@ -46,13 +44,13 @@
   }
 
   body {
-    @apply bg-[var(--color-background)] text-[var(--color-text)];
+    @apply bg-(--color-background) text-(--color-text);
   }
 
-  /* Typography hierarchy - gentle, calm */
+  /* Typography hierarchy - clear, editorial, data-forward */
   h1, h2, h3, h4, h5, h6 {
-    @apply font-semibold text-[var(--color-primary)];
-    line-height: 1.3;
+    @apply font-semibold text-(--color-primary);
+    line-height: 1.2;
   }
 
   h1 {
@@ -75,13 +73,13 @@
     font-weight: 600;
   }
 
-  /* Body and form text */
+  /* Body and form text - high legibility */
   p, body, input, textarea, select, label {
     @apply font-normal;
     line-height: 1.6;
   }
 
-  /* Form input styling - calm, minimalist */
+  /* Form input styling - clean, focused */
   input[type="text"],
   input[type="email"],
   input[type="password"],
@@ -89,20 +87,20 @@
   input[type="date"],
   textarea,
   select {
-    @apply border border-[var(--color-border)] rounded-lg px-4 py-2;
+    @apply border-2 border-(--color-border) rounded px-4 py-2;
     @apply transition-all duration-200;
-    @apply focus:outline-none focus:border-[var(--color-accent)] focus:border-2;
+    @apply focus:outline-none focus:border-(--color-accent);
   }
 
   input::placeholder,
   textarea::placeholder {
-    @apply text-[var(--color-muted-text)];
+    @apply text-(--color-muted-text);
   }
 
   input:disabled,
   textarea:disabled,
   select:disabled {
-    @apply bg-gray-50 cursor-not-allowed;
+    @apply bg-gray-100 cursor-not-allowed opacity-60;
   }
 
   /* Button base */
@@ -112,18 +110,22 @@
 
   /* Link styling */
   a {
-    @apply text-[var(--color-accent)] hover:text-[var(--color-primary)] transition-colors duration-200;
+    @apply text-(--color-accent) hover:text-(--color-primary) transition-colors duration-200;
   }
 }
 
 @layer components {
-  /* Primary button - calm, soft rounded */
+  /* Primary button - warm accent, clean */
   .btn-primary {
-    @apply bg-[var(--color-accent)] text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-200;
+    @apply bg-(--color-accent) text-white font-semibold py-2 px-4 rounded transition-colors duration-200;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .btn-primary:hover {
-    @apply bg-[var(--color-accent-hover)];
+    @apply bg-(--color-accent-hover);
   }
 
   .btn-primary:disabled {
@@ -131,12 +133,16 @@
   }
 
   .btn-primary:focus {
-    @apply outline-none border-2 border-[var(--color-accent)];
+    @apply outline-none ring-2 ring-(--color-accent) ring-offset-2;
   }
 
-  /* Secondary button - border only, minimal */
+  /* Secondary button - border, minimal */
   .btn-secondary {
-    @apply border border-[var(--color-border)] text-[var(--color-text)] font-semibold py-2 px-4 rounded-lg transition-colors duration-200;
+    @apply border-2 border-(--color-border) text-(--color-text) font-semibold py-2 px-4 rounded transition-colors duration-200;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .btn-secondary:hover {
@@ -148,16 +154,20 @@
   }
 
   .btn-secondary:focus {
-    @apply outline-none border-2 border-[var(--color-accent)];
+    @apply outline-none ring-2 ring-(--color-accent) ring-offset-2;
   }
 
-  /* Danger button - warm, muted */
+  /* Danger button - warm, semantic */
   .btn-danger {
-    @apply bg-[var(--color-danger)] text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-200;
+    @apply bg-(--color-danger) text-white font-semibold py-2 px-4 rounded transition-colors duration-200;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .btn-danger:hover {
-    @apply bg-[var(--color-danger-hover)];
+    @apply bg-red-700;
   }
 
   .btn-danger:disabled {
@@ -165,26 +175,32 @@
   }
 
   .btn-danger:focus {
-    @apply outline-none border-2 border-[var(--color-danger)];
+    @apply outline-none ring-2 ring-(--color-danger) ring-offset-2;
   }
 
-  /* Card styling - minimal shadow, breathing room */
+  /* Card styling - minimal border, breathing room */
   .card {
-    @apply bg-[var(--color-surface)] border border-[var(--color-border)] rounded-lg;
-    box-shadow: 0 2px 4px rgba(26, 26, 24, 0.04);
+    @apply bg-(--color-surface) border border-(--color-border) rounded;
   }
 
-  /* Success message - semantic, minimal */
+  /* Success message - semantic, editorial */
   .message-success {
-    @apply p-4 border-l-4 border-[var(--color-success)] text-[var(--color-success)] rounded;
-    background-color: rgba(59, 143, 108, 0.08);
+    @apply p-4 border-l-4 border-(--color-success) text-(--color-success) rounded;
+    background-color: rgba(74, 140, 110, 0.08);
     animation: fadeInMessage 0.3s ease-out;
   }
 
-  /* Error message - semantic, minimal */
+  /* Error message - semantic, editorial */
   .message-error {
-    @apply p-4 border-l-4 border-[var(--color-danger)] text-[var(--color-danger)] rounded;
-    background-color: rgba(168, 74, 61, 0.08);
+    @apply p-4 border-l-4 border-(--color-danger) text-(--color-danger) rounded;
+    background-color: rgba(184, 74, 61, 0.08);
+    animation: fadeInMessage 0.3s ease-out;
+  }
+
+  /* Warning message */
+  .message-warning {
+    @apply p-4 border-l-4 border-(--color-warning) text-(--color-warning) rounded;
+    background-color: rgba(200, 148, 73, 0.08);
     animation: fadeInMessage 0.3s ease-out;
   }
 
@@ -199,17 +215,6 @@
     }
   }
 
-  @keyframes fadeOutMessage {
-    from {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    to {
-      opacity: 0;
-      transform: translateY(-4px);
-    }
-  }
-
   /* Chart segment fade-in animation */
   @keyframes fadeInSegment {
     from {
@@ -220,7 +225,7 @@
     }
   }
 
-  /* Spinner animation - calm, steady */
+  /* Spinner animation - steady, calm */
   .spinner-calm {
     animation: spin 2s linear infinite;
   }
@@ -234,7 +239,7 @@
     }
   }
 
-  /* Table styling - minimal borders, breathing room */
+  /* Table styling - clear, editorial */
   table {
     @apply w-full border-collapse;
   }
@@ -244,14 +249,14 @@
   }
 
   thead th {
-    @apply text-left py-3 px-4 font-semibold text-[var(--color-text)] border-b border-[var(--color-border)];
+    @apply text-left py-3 px-4 font-semibold text-(--color-text) border-b border-(--color-border);
   }
 
   tbody tr {
-    @apply border-b border-[var(--color-border)] transition-colors duration-200 hover:bg-gray-50;
+    @apply border-b border-(--color-border) transition-colors duration-200 hover:bg-gray-50;
   }
 
   tbody td {
-    @apply py-3 px-4 text-[var(--color-text)];
+    @apply py-3 px-4 text-(--color-text);
   }
 }

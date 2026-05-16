@@ -30,8 +30,8 @@ export default function BudgetList({ budgets, isLoading, onEdit }: BudgetListPro
   if (isLoading) {
     return (
       <div className="flex items-center justify-center py-12">
-        <div className="inline-block spinner-calm rounded-full h-8 w-8 border-4 border-[var(--color-border)] border-t-[var(--color-accent)]"></div>
-        <span className="ml-4 text-[var(--color-muted-text)]">Loading budgets...</span>
+        <div className="inline-block spinner-calm rounded-full h-8 w-8 border-4 border-(--color-border) border-t-(--color-accent)"></div>
+        <span className="ml-4 text-(--color-muted-text)">Loading budgets...</span>
       </div>
     );
   }
@@ -39,7 +39,7 @@ export default function BudgetList({ budgets, isLoading, onEdit }: BudgetListPro
   if (budgets.length === 0) {
     return (
       <div className="text-center py-12">
-        <p className="text-[var(--color-muted-text)] text-base">No budgets yet. Create one to get started!</p>
+        <p className="text-(--color-muted-text) text-base">No budgets yet. Create one to get started!</p>
       </div>
     );
   }
@@ -48,26 +48,26 @@ export default function BudgetList({ budgets, isLoading, onEdit }: BudgetListPro
     <div className="overflow-x-auto">
       <table className="w-full">
         <thead>
-          <tr className="border-b border-[var(--color-border)]">
-            <th className="text-left py-3 px-4 font-semibold text-[var(--color-text)]">Budget Name</th>
-            <th className="text-right py-3 px-4 font-semibold text-[var(--color-text)]">Allocated Amount</th>
-            <th className="text-left py-3 px-4 font-semibold text-[var(--color-text)]">Category</th>
-            <th className="text-left py-3 px-4 font-semibold text-[var(--color-text)]">Date</th>
-            <th className="text-right py-3 px-4 font-semibold text-[var(--color-text)]">Actions</th>
+          <tr className="border-b border-(--color-border)">
+            <th className="text-left py-3 px-4 font-semibold text-(--color-text)">Budget Name</th>
+            <th className="text-right py-3 px-4 font-semibold text-(--color-text)">Allocated Amount</th>
+            <th className="text-left py-3 px-4 font-semibold text-(--color-text)">Category</th>
+            <th className="text-left py-3 px-4 font-semibold text-(--color-text)">Date</th>
+            <th className="text-right py-3 px-4 font-semibold text-(--color-text)">Actions</th>
           </tr>
         </thead>
         <tbody>
           {budgets.map((budget) => (
-            <tr key={budget.id} className="border-b border-[var(--color-border)] transition-colors duration-200 hover:bg-gray-50">
-              <td className="py-3 px-4 text-[var(--color-text)]">{budget.name}</td>
-              <td className="text-right py-3 px-4 text-[var(--color-text)] font-semibold">${budget.allocated_amount.toFixed(2)}</td>
-              <td className="py-3 px-4 text-[var(--color-text)]">{budget.category || 'Other'}</td>
-              <td className="py-3 px-4 text-[var(--color-text)]">{formatDate(budget.budget_date)}</td>
+            <tr key={budget.id} className="border-b border-(--color-border) transition-colors duration-200 hover:bg-gray-50">
+              <td className="py-3 px-4 text-(--color-text)">{budget.name}</td>
+              <td className="text-right py-3 px-4 text-(--color-text) font-semibold font-mono">${budget.allocated_amount.toFixed(2)}</td>
+              <td className="py-3 px-4 text-(--color-text)">{budget.category || 'Other'}</td>
+              <td className="py-3 px-4 text-(--color-text)">{formatDate(budget.budget_date)}</td>
               <td className="text-right py-3 px-4">
                 <div className="flex justify-end gap-2">
                   <button
                     onClick={() => onEdit(budget)}
-                    className="inline-flex items-center gap-1 bg-[var(--color-accent)] text-white py-1 px-3 rounded transition-colors duration-200 text-sm font-medium hover:bg-[var(--color-accent-hover)] focus:outline-none focus:border-2 focus:border-[var(--color-accent)]"
+                    className="inline-flex items-center gap-1 bg-(--color-accent) text-white py-1 px-3 rounded transition-colors duration-200 text-sm font-medium hover:bg-(--color-accent-hover) focus:outline-none focus:ring-2 focus:ring-(--color-accent) focus:ring-offset-2"
                   >
                     <Edit2 size={16} />
                     Edit
@@ -75,7 +75,7 @@ export default function BudgetList({ budgets, isLoading, onEdit }: BudgetListPro
                   <button
                     onClick={() => handleDelete(budget.id)}
                     disabled={isDeleting}
-                    className="inline-flex items-center gap-1 bg-[var(--color-danger)] disabled:bg-gray-300 disabled:cursor-not-allowed text-white py-1 px-3 rounded transition-colors duration-200 text-sm font-medium hover:bg-[var(--color-danger-hover)] focus:outline-none focus:border-2 focus:border-[var(--color-danger)]"
+                    className="inline-flex items-center gap-1 bg-(--color-danger) disabled:bg-gray-300 disabled:cursor-not-allowed text-white py-1 px-3 rounded transition-colors duration-200 text-sm font-medium hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-(--color-danger) focus:ring-offset-2"
                   >
                     <Trash2 size={16} />
                     Delete

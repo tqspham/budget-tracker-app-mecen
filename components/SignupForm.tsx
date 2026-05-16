@@ -64,18 +64,18 @@ export default function SignupForm({ onLoginClick }: SignupFormProps) {
   };
 
   return (
-    <div className="w-full max-w-md bg-[var(--color-surface)] rounded-lg border border-[var(--color-border)] p-8 card">
-      <h2 className="text-2xl font-semibold text-[var(--color-primary)] mb-8 text-center">Sign Up</h2>
+    <div className="w-full max-w-md bg-(--color-surface) rounded border border-(--color-border) p-8 card">
+      <h2 className="text-2xl font-semibold text-(--color-primary) mb-8">Sign Up</h2>
 
       {error && (
-        <div className="mb-6 p-4 bg-opacity-10 border-l-4 border-[var(--color-danger)] text-[var(--color-danger)] rounded text-sm" style={{ backgroundColor: 'rgba(168, 74, 61, 0.08)' }}>
+        <div className="mb-6 p-4 border-l-4 border-(--color-danger) text-(--color-danger) rounded text-sm message-error">
           {error}
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-6">
         <div>
-          <label htmlFor="email" className="block text-sm font-semibold text-[var(--color-text)] mb-2">
+          <label htmlFor="email" className="block text-sm font-semibold text-(--color-text) mb-2">
             Email
           </label>
           <input
@@ -84,13 +84,13 @@ export default function SignupForm({ onLoginClick }: SignupFormProps) {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             disabled={loading}
-            className="w-full px-4 py-2 border border-[var(--color-border)] rounded-lg focus:outline-none focus:border-[var(--color-accent)] focus:border-2 disabled:bg-gray-50 disabled:cursor-not-allowed transition-all duration-200"
+            className="w-full px-4 py-2 border-2 border-(--color-border) rounded focus:outline-none focus:border-(--color-accent) disabled:bg-gray-100 disabled:cursor-not-allowed transition-all duration-200"
             placeholder="you@example.com"
           />
         </div>
 
         <div>
-          <label htmlFor="password" className="block text-sm font-semibold text-[var(--color-text)] mb-2">
+          <label htmlFor="password" className="block text-sm font-semibold text-(--color-text) mb-2">
             Password
           </label>
           <input
@@ -99,7 +99,7 @@ export default function SignupForm({ onLoginClick }: SignupFormProps) {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             disabled={loading}
-            className="w-full px-4 py-2 border border-[var(--color-border)] rounded-lg focus:outline-none focus:border-[var(--color-accent)] focus:border-2 disabled:bg-gray-50 disabled:cursor-not-allowed transition-all duration-200"
+            className="w-full px-4 py-2 border-2 border-(--color-border) rounded focus:outline-none focus:border-(--color-accent) disabled:bg-gray-100 disabled:cursor-not-allowed transition-all duration-200"
             placeholder="••••••••"
           />
         </div>
@@ -107,18 +107,18 @@ export default function SignupForm({ onLoginClick }: SignupFormProps) {
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-[var(--color-accent)] text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-200 disabled:bg-gray-300 disabled:cursor-not-allowed hover:bg-[var(--color-accent-hover)] focus:outline-none focus:border-2 focus:border-[var(--color-accent)]"
+          className="w-full bg-(--color-accent) text-white font-semibold py-2 px-4 rounded transition-colors duration-200 disabled:bg-gray-300 disabled:cursor-not-allowed hover:bg-(--color-accent-hover) focus:outline-none focus:ring-2 focus:ring-(--color-accent) focus:ring-offset-2 min-h-44px"
         >
           {loading ? 'Signing up...' : 'Sign Up'}
         </button>
       </form>
 
-      <p className="mt-6 text-center text-[var(--color-muted-text)] text-sm">
+      <p className="mt-6 text-center text-(--color-muted-text) text-sm">
         Already have an account?{' '}
         <button
           onClick={onLoginClick}
           disabled={loading}
-          className="text-[var(--color-accent)] font-semibold disabled:cursor-not-allowed transition-colors duration-200 hover:text-[var(--color-primary)]"
+          className="text-(--color-accent) font-semibold disabled:cursor-not-allowed transition-colors duration-200 hover:text-(--color-primary)"
         >
           Login
         </button>
