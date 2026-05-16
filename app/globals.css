@@ -1,1 +1,175 @@
 @import "tailwindcss";
+
+@layer base {
+  :root {
+    /* Palette */
+    --color-background: #FAFAF8;
+    --color-surface: #FFFFFF;
+    --color-primary: #0F5E5A;
+    --color-secondary: #6B8E8A;
+    --color-accent: #2BA89D;
+    --color-text: #1A1A18;
+    --color-muted-text: #747470;
+    --color-border: #E5E1DB;
+    --color-success: #3B8F6C;
+    --color-warning: #C8944C;
+    --color-danger: #A84A3D;
+
+    /* Typography */
+    --font-family-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter", "Helvetica Neue", sans-serif;
+
+    /* Spacing (8px base unit) */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 1.5rem;
+    --spacing-lg: 2rem;
+    --spacing-xl: 2.5rem;
+    --spacing-2xl: 3rem;
+    --spacing-3xl: 3.5rem;
+    --spacing-4xl: 4rem;
+  }
+
+  html {
+    font-family: var(--font-family-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-[var(--color-background)] text-[var(--color-text)];
+  }
+
+  /* Typography hierarchy */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold text-[var(--color-primary)];
+    line-height: 1.3;
+  }
+
+  h1 {
+    @apply text-4xl;
+  }
+
+  h2 {
+    @apply text-3xl;
+  }
+
+  h3 {
+    @apply text-2xl font-semibold;
+  }
+
+  h4 {
+    @apply text-xl font-semibold;
+  }
+
+  /* Body and form text */
+  p, body, input, textarea, select, label {
+    @apply font-normal;
+    line-height: 1.6;
+  }
+
+  /* Form input styling */
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="number"],
+  input[type="date"],
+  textarea,
+  select {
+    @apply border border-[var(--color-border)] rounded-lg px-4 py-2;
+    @apply transition-all duration-200;
+    @apply focus:outline-none focus:border-[var(--color-accent)] focus:border-2;
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    @apply text-[var(--color-muted-text)];
+  }
+
+  input:disabled,
+  textarea:disabled,
+  select:disabled {
+    @apply bg-gray-100 cursor-not-allowed;
+  }
+
+  /* Button base */
+  button {
+    @apply transition-all duration-200;
+  }
+
+  /* Link styling */
+  a {
+    @apply text-[var(--color-accent)] hover:text-[var(--color-primary)] transition-colors duration-200;
+  }
+}
+
+@layer components {
+  /* Primary button */
+  .btn-primary {
+    @apply bg-[var(--color-accent)] hover:bg-opacity-90 text-white font-medium py-2 px-4 rounded-lg transition duration-200;
+  }
+
+  .btn-primary:disabled {
+    @apply bg-gray-300 cursor-not-allowed opacity-50;
+  }
+
+  /* Secondary button */
+  .btn-secondary {
+    @apply border border-[var(--color-border)] text-[var(--color-text)] hover:bg-gray-50 font-medium py-2 px-4 rounded-lg transition duration-200;
+  }
+
+  .btn-secondary:disabled {
+    @apply bg-gray-100 cursor-not-allowed opacity-50;
+  }
+
+  /* Danger button */
+  .btn-danger {
+    @apply bg-[var(--color-danger)] hover:bg-opacity-90 text-white font-medium py-2 px-4 rounded-lg transition duration-200;
+  }
+
+  .btn-danger:disabled {
+    @apply bg-gray-300 cursor-not-allowed opacity-50;
+  }
+
+  /* Card styling */
+  .card {
+    @apply bg-[var(--color-surface)] border border-[var(--color-border)] rounded-lg;
+    box-shadow: 0 2px 4px rgba(26, 26, 24, 0.04);
+  }
+
+  /* Success message */
+  .message-success {
+    @apply p-4 bg-[var(--color-success)] bg-opacity-10 border border-[var(--color-success)] text-[var(--color-success)] rounded;
+    animation: slideInDown 0.3s ease-out;
+  }
+
+  /* Error message */
+  .message-error {
+    @apply p-4 bg-[var(--color-danger)] bg-opacity-10 border border-[var(--color-danger)] text-[var(--color-danger)] rounded;
+    animation: slideInDown 0.3s ease-out;
+  }
+
+  @keyframes slideInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-2px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Spinner animation */
+  .spinner-calm {
+    animation: spin 2s linear infinite;
+  }
+
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+}

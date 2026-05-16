@@ -54,23 +54,23 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       {successMessage && (
-        <div className="p-4 bg-green-100 border border-green-400 text-green-700 rounded">
+        <div className="p-4 bg-[var(--color-success)] bg-opacity-10 border border-[var(--color-success)] text-[var(--color-success)] rounded text-sm message-success">
           {successMessage}
         </div>
       )}
       {error && (
-        <div className="p-4 bg-red-100 border border-red-400 text-red-700 rounded">
+        <div className="p-4 bg-[var(--color-danger)] bg-opacity-10 border border-[var(--color-danger)] text-[var(--color-danger)] rounded text-sm message-error">
           {error}
         </div>
       )}
 
       <BudgetCharts budgets={budgets} />
 
-      <div className="bg-white rounded-lg shadow-md p-8">
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="text-3xl font-bold text-gray-800">Your Budgets</h2>
+      <div className="bg-[var(--color-surface)] rounded-lg border border-[var(--color-border)] p-8" style={{ boxShadow: '0 2px 4px rgba(26,26,24,0.04)' }}>
+        <div className="flex justify-between items-center mb-8">
+          <h2 className="text-3xl font-bold text-[var(--color-primary)]">Your Budgets</h2>
           <AddBudgetButton onClick={handleOpenForm} disabled={showForm} />
         </div>
 

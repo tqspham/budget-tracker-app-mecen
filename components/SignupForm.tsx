@@ -64,18 +64,18 @@ export default function SignupForm({ onLoginClick }: SignupFormProps) {
   };
 
   return (
-    <div className="w-full max-w-md bg-white rounded-lg shadow-md p-8">
-      <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">Sign Up</h2>
+    <div className="w-full max-w-md bg-[var(--color-surface)] rounded-lg border border-[var(--color-border)] p-8" style={{ boxShadow: '0 2px 4px rgba(26,26,24,0.04)' }}>
+      <h2 className="text-2xl font-bold text-[var(--color-primary)] mb-8 text-center">Sign Up</h2>
 
       {error && (
-        <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
+        <div className="mb-6 p-4 bg-[var(--color-danger)] bg-opacity-10 border border-[var(--color-danger)] text-[var(--color-danger)] rounded text-sm">
           {error}
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-6">
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="email" className="block text-sm font-semibold text-[var(--color-text)] mb-2">
             Email
           </label>
           <input
@@ -84,13 +84,13 @@ export default function SignupForm({ onLoginClick }: SignupFormProps) {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             disabled={loading}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-100 disabled:cursor-not-allowed"
+            className="w-full px-4 py-2 border border-[var(--color-border)] rounded-lg focus:outline-none focus:border-[var(--color-accent)] focus:border-2 disabled:bg-gray-100 disabled:cursor-not-allowed transition-all duration-200"
             placeholder="you@example.com"
           />
         </div>
 
         <div>
-          <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="password" className="block text-sm font-semibold text-[var(--color-text)] mb-2">
             Password
           </label>
           <input
@@ -99,7 +99,7 @@ export default function SignupForm({ onLoginClick }: SignupFormProps) {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             disabled={loading}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-100 disabled:cursor-not-allowed"
+            className="w-full px-4 py-2 border border-[var(--color-border)] rounded-lg focus:outline-none focus:border-[var(--color-accent)] focus:border-2 disabled:bg-gray-100 disabled:cursor-not-allowed transition-all duration-200"
             placeholder="••••••••"
           />
         </div>
@@ -107,18 +107,18 @@ export default function SignupForm({ onLoginClick }: SignupFormProps) {
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-blue-500 hover:bg-blue-600 disabled:bg-blue-300 disabled:cursor-not-allowed text-white font-medium py-2 px-4 rounded-lg transition duration-200"
+          className="w-full bg-[var(--color-accent)] hover:bg-opacity-90 disabled:bg-gray-300 disabled:cursor-not-allowed text-white font-semibold py-2 px-4 rounded-lg transition duration-200"
         >
           {loading ? 'Signing up...' : 'Sign Up'}
         </button>
       </form>
 
-      <p className="mt-4 text-center text-gray-600 text-sm">
+      <p className="mt-6 text-center text-[var(--color-muted-text)] text-sm">
         Already have an account?{' '}
         <button
           onClick={onLoginClick}
           disabled={loading}
-          className="text-blue-500 hover:text-blue-600 font-medium disabled:cursor-not-allowed"
+          className="text-[var(--color-accent)] hover:text-[var(--color-primary)] font-semibold disabled:cursor-not-allowed transition-colors duration-200"
         >
           Login
         </button>

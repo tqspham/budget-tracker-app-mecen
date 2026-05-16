@@ -91,21 +91,21 @@ export default function BudgetForm({ budget, onClose }: BudgetFormProps) {
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-      <div className="bg-white rounded-lg shadow-lg max-w-md w-full p-6">
-        <h2 className="text-2xl font-bold text-gray-800 mb-6">
+    <div className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center p-4 z-50">
+      <div className="bg-[var(--color-surface)] rounded-lg border border-[var(--color-border)] max-w-md w-full p-8" style={{ boxShadow: '0 2px 4px rgba(26,26,24,0.04)' }}>
+        <h2 className="text-2xl font-bold text-[var(--color-primary)] mb-8">
           {budget ? 'Edit Budget' : 'Add New Budget'}
         </h2>
 
         {localError && (
-          <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
+          <div className="mb-6 p-4 bg-[var(--color-danger)] bg-opacity-10 border border-[var(--color-danger)] text-[var(--color-danger)] rounded text-sm">
             {localError}
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="name" className="block text-sm font-semibold text-[var(--color-text)] mb-2">
               Budget Name
             </label>
             <input
@@ -114,13 +114,13 @@ export default function BudgetForm({ budget, onClose }: BudgetFormProps) {
               value={name}
               onChange={(e) => setName(e.target.value)}
               disabled={isLoading}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-100 disabled:cursor-not-allowed"
+              className="w-full px-4 py-2 border border-[var(--color-border)] rounded-lg focus:outline-none focus:border-[var(--color-accent)] focus:border-2 disabled:bg-gray-100 disabled:cursor-not-allowed transition-all duration-200"
               placeholder="e.g., Groceries"
             />
           </div>
 
           <div>
-            <label htmlFor="amount" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="amount" className="block text-sm font-semibold text-[var(--color-text)] mb-2">
               Allocated Amount ($)
             </label>
             <input
@@ -131,13 +131,13 @@ export default function BudgetForm({ budget, onClose }: BudgetFormProps) {
               disabled={isLoading}
               step="0.01"
               min="0"
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-100 disabled:cursor-not-allowed"
+              className="w-full px-4 py-2 border border-[var(--color-border)] rounded-lg focus:outline-none focus:border-[var(--color-accent)] focus:border-2 disabled:bg-gray-100 disabled:cursor-not-allowed transition-all duration-200"
               placeholder="0.00"
             />
           </div>
 
           <div>
-            <label htmlFor="category" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="category" className="block text-sm font-semibold text-[var(--color-text)] mb-2">
               Category
             </label>
             <select
@@ -145,7 +145,7 @@ export default function BudgetForm({ budget, onClose }: BudgetFormProps) {
               value={category}
               onChange={(e) => setCategory(e.target.value)}
               disabled={isLoading}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-100 disabled:cursor-not-allowed"
+              className="w-full px-4 py-2 border border-[var(--color-border)] rounded-lg focus:outline-none focus:border-[var(--color-accent)] focus:border-2 disabled:bg-gray-100 disabled:cursor-not-allowed transition-all duration-200"
             >
               {BUDGET_CATEGORIES.map((cat) => (
                 <option key={cat} value={cat}>
@@ -156,7 +156,7 @@ export default function BudgetForm({ budget, onClose }: BudgetFormProps) {
           </div>
 
           <div>
-            <label htmlFor="budgetDate" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="budgetDate" className="block text-sm font-semibold text-[var(--color-text)] mb-2">
               Budget Date
             </label>
             <input
@@ -165,15 +165,15 @@ export default function BudgetForm({ budget, onClose }: BudgetFormProps) {
               value={budgetDate}
               onChange={(e) => setBudgetDate(e.target.value)}
               disabled={isLoading}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-100 disabled:cursor-not-allowed"
+              className="w-full px-4 py-2 border border-[var(--color-border)] rounded-lg focus:outline-none focus:border-[var(--color-accent)] focus:border-2 disabled:bg-gray-100 disabled:cursor-not-allowed transition-all duration-200"
             />
           </div>
 
-          <div className="flex gap-3 pt-4">
+          <div className="flex gap-4 pt-2">
             <button
               type="submit"
               disabled={isLoading}
-              className="flex-1 bg-blue-500 hover:bg-blue-600 disabled:bg-blue-300 disabled:cursor-not-allowed text-white font-medium py-2 px-4 rounded-lg transition duration-200"
+              className="flex-1 bg-[var(--color-accent)] hover:bg-opacity-90 disabled:bg-gray-300 disabled:cursor-not-allowed text-white font-semibold py-2 px-4 rounded-lg transition duration-200"
             >
               {isLoading ? (budget ? 'Updating...' : 'Creating...') : (budget ? 'Update' : 'Create')}
             </button>
@@ -181,7 +181,7 @@ export default function BudgetForm({ budget, onClose }: BudgetFormProps) {
               type="button"
               onClick={onClose}
               disabled={isLoading}
-              className="flex-1 bg-gray-300 hover:bg-gray-400 disabled:bg-gray-200 disabled:cursor-not-allowed text-gray-800 font-medium py-2 px-4 rounded-lg transition duration-200"
+              className="flex-1 border border-[var(--color-border)] text-[var(--color-text)] hover:bg-gray-50 disabled:bg-gray-100 disabled:cursor-not-allowed font-semibold py-2 px-4 rounded-lg transition duration-200"
             >
               Cancel
             </button>

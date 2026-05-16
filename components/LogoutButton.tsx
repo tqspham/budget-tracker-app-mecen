@@ -22,7 +22,6 @@ export default function LogoutButton() {
         router.push(data.redirectUrl);
       }
     } catch (error) {
-      console.error('Logout failed:', error);
       setLoading(false);
     }
   };
@@ -31,7 +30,7 @@ export default function LogoutButton() {
     <button
       onClick={handleLogout}
       disabled={loading}
-      className="bg-red-500 hover:bg-red-600 disabled:bg-red-300 disabled:cursor-not-allowed text-white font-medium py-2 px-4 rounded-lg transition duration-200"
+      className="border border-[var(--color-border)] hover:bg-gray-50 disabled:bg-gray-100 disabled:cursor-not-allowed text-[var(--color-text)] font-semibold py-2 px-4 rounded-lg transition duration-200"
     >
       {loading ? 'Logging out...' : 'Logout'}
     </button>
