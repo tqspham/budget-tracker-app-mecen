@@ -95,7 +95,7 @@ function PieChartRefined({ data }: { data: CategoryAggregate[] }): JSX.Element {
   });
 
   return (
-    <div className="space-y-6">
+    <div className="flex flex-col items-center space-y-6">
       <svg viewBox="0 0 100 100" className="w-full max-w-xs aspect-square">
         {segments.map((segment, idx) => (
           <g key={idx} className="chart-segment" style={{ opacity: 0, animation: `fadeInSegment 0.4s ease-out ${idx * 0.08}s forwards` }}>
@@ -110,7 +110,7 @@ function PieChartRefined({ data }: { data: CategoryAggregate[] }): JSX.Element {
           </g>
         ))}
       </svg>
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-2 gap-4 w-full max-w-xs">
         {segments.map((segment, idx) => (
           <div key={idx} className="flex items-center gap-3">
             <div
@@ -257,7 +257,7 @@ export default function BudgetCharts({ budgets }: { budgets: Budget[] }): JSX.El
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
       {/* Budget by Category - Left Column */}
-      <div className="bg-[var(--color-surface)] rounded-lg border border-[var(--color-border)] p-8" style={{ boxShadow: '0 2px 4px rgba(26, 26, 24, 0.04)' }}>
+      <div className="bg-[var(--color-surface)] rounded-lg border border-[var(--color-border)] p-8 flex flex-col items-center" style={{ boxShadow: '0 2px 4px rgba(26, 26, 24, 0.04)' }}>
         <h3 className="text-2xl font-bold text-[var(--color-primary)] mb-8">Budget by Category</h3>
         <PieChartRefined data={categoryData} />
       </div>
