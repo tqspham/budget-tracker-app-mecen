@@ -96,7 +96,7 @@ function PieChartRefined({ data }: { data: CategoryAggregate[] }): JSX.Element {
 
   return (
     <div className="space-y-6">
-      <svg viewBox="0 0 100 100" className="w-full max-w-xs mx-auto aspect-square">
+      <svg viewBox="0 0 100 100" className="w-full max-w-xs aspect-square">
         {segments.map((segment, idx) => (
           <g key={idx} className="chart-segment" style={{ opacity: 0, animation: `fadeInSegment 0.4s ease-out ${idx * 0.08}s forwards` }}>
             <path
@@ -142,8 +142,8 @@ function LineChartRefined({ data }: { data: DateAggregate[] }): JSX.Element {
   const range = maxValue - minValue || 1;
 
   const padding = 40;
-  const width = 100;
-  const height = 100;
+  const width = 160;
+  const height = 90;
   const chartWidth = width - 2 * padding;
   const chartHeight = height - 2 * padding;
 
@@ -159,7 +159,7 @@ function LineChartRefined({ data }: { data: DateAggregate[] }): JSX.Element {
 
   return (
     <div className="space-y-4">
-      <svg viewBox="0 0 100 100" className="w-full aspect-square bg-white rounded-lg border border-[var(--color-border)]">
+      <svg viewBox={`0 0 ${width} ${height}`} className="w-full aspect-video bg-white rounded-lg border border-[var(--color-border)]">
         <defs>
           <linearGradient id="areaGradientRefined" x1="0%" y1="0%" x2="0%" y2="100%">
             <stop offset="0%" style={{ stopColor: '#2BA89D', stopOpacity: 0.08 }} />
@@ -255,12 +255,14 @@ export default function BudgetCharts({ budgets }: { budgets: Budget[] }): JSX.El
   const timeSeriesData = getTimeSeriesData(budgets);
 
   return (
-    <div className="space-y-12">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      {/* Budget by Category - Left Column */}
       <div className="bg-[var(--color-surface)] rounded-lg border border-[var(--color-border)] p-8" style={{ boxShadow: '0 2px 4px rgba(26, 26, 24, 0.04)' }}>
         <h3 className="text-2xl font-bold text-[var(--color-primary)] mb-8">Budget by Category</h3>
         <PieChartRefined data={categoryData} />
       </div>
 
+      {/* Budget Over Time - Right Column */}
       <div className="bg-[var(--color-surface)] rounded-lg border border-[var(--color-border)] p-8" style={{ boxShadow: '0 2px 4px rgba(26, 26, 24, 0.04)' }}>
         <h3 className="text-2xl font-bold text-[var(--color-primary)] mb-8">Budget Over Time</h3>
         <LineChartRefined data={timeSeriesData} />
