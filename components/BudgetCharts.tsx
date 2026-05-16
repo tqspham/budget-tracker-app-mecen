@@ -131,7 +131,7 @@ function PieChartRefined({ data }: { data: CategoryAggregate[] }): JSX.Element {
 function LineChartRefined({ data }: { data: DateAggregate[] }): JSX.Element {
   if (data.length === 0) {
     return (
-      <div className="flex items-center justify-center h-64 bg-[var(--color-background)] rounded-lg">
+      <div className="flex items-center justify-center h-full bg-[var(--color-background)] rounded-lg">
         <p className="text-[var(--color-muted-text)] text-sm">No data available yet</p>
       </div>
     );
@@ -143,7 +143,7 @@ function LineChartRefined({ data }: { data: DateAggregate[] }): JSX.Element {
 
   const padding = 12;
   const width = 160;
-  const height = 90;
+  const height = 160;
   const chartWidth = width - 2 * padding;
   const chartHeight = height - 2 * padding;
 
@@ -158,8 +158,8 @@ function LineChartRefined({ data }: { data: DateAggregate[] }): JSX.Element {
   const gridLineColor = 'rgba(229, 225, 219, 0.4)';
 
   return (
-    <div className="space-y-4">
-      <svg viewBox={`0 0 ${width} ${height}`} className="w-full aspect-video bg-white rounded-lg border border-[var(--color-border)]">
+    <div className="space-y-4 h-full flex flex-col">
+      <svg viewBox={`0 0 ${width} ${height}`} className="w-full h-full bg-white rounded-lg border border-[var(--color-border)] flex-1">
         <defs>
           <linearGradient id="areaGradientRefined" x1="0%" y1="0%" x2="0%" y2="100%">
             <stop offset="0%" style={{ stopColor: '#2BA89D', stopOpacity: 0.08 }} />
@@ -263,7 +263,7 @@ export default function BudgetCharts({ budgets }: { budgets: Budget[] }): JSX.El
       </div>
 
       {/* Budget Over Time - Right Column */}
-      <div className="bg-[var(--color-surface)] rounded-lg border border-[var(--color-border)] p-8" style={{ boxShadow: '0 2px 4px rgba(26, 26, 24, 0.04)' }}>
+      <div className="bg-[var(--color-surface)] rounded-lg border border-[var(--color-border)] p-8 flex flex-col" style={{ boxShadow: '0 2px 4px rgba(26, 26, 24, 0.04)' }}>
         <h3 className="text-2xl font-bold text-[var(--color-primary)] mb-8">Budget Over Time</h3>
         <LineChartRefined data={timeSeriesData} />
       </div>
