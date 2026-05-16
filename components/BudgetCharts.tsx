@@ -49,11 +49,11 @@ function formatDateShort(dateString: string): string {
   return `${month}/${day}`;
 }
 
-function PieChartSimple({ data }: { data: CategoryAggregate[] }): JSX.Element {
+function PieChartRefined({ data }: { data: CategoryAggregate[] }): JSX.Element {
   if (data.length === 0) {
     return (
-      <div className="flex items-center justify-center h-64 bg-gray-50 rounded-lg">
-        <p className="text-[var(--color-muted-text)]">No data available yet</p>
+      <div className="flex items-center justify-center h-64 bg-[var(--color-background)] rounded-lg">
+        <p className="text-[var(--color-muted-text)] text-sm">No data available yet</p>
       </div>
     );
   }
@@ -83,7 +83,6 @@ function PieChartSimple({ data }: { data: CategoryAggregate[] }): JSX.Element {
     const y2 = 50 + 40 * Math.sin(endRad);
 
     const largeArc = percent > 50 ? 1 : 0;
-
     const pathData = `M 50 50 L ${x1} ${y1} A 40 40 0 ${largeArc} 1 ${x2} ${y2} Z`;
 
     return {
@@ -99,7 +98,16 @@ function PieChartSimple({ data }: { data: CategoryAggregate[] }): JSX.Element {
     <div className="space-y-6">
       <svg viewBox="0 0 100 100" className="w-full max-w-xs mx-auto aspect-square">
         {segments.map((segment, idx) => (
-          <path key={idx} d={segment.path} fill={segment.color} stroke="white" strokeWidth="0.5" />
+          <g key={idx} className="chart-segment" style={{ opacity: 0, animation: `fadeInSegment 0.4s ease-out ${idx * 0.08}s forwards` }}>
+            <path
+              d={segment.path}
+              fill={segment.color}
+              stroke="white"
+              strokeWidth="0.5"
+              className="transition-transform duration-200 cursor-pointer hover:scale-105"
+              style={{ transformOrigin: '50px 50px', transformBox: 'fill-box' }}
+            />
+          </g>
         ))}
       </svg>
       <div className="grid grid-cols-2 gap-4">
@@ -111,7 +119,7 @@ function PieChartSimple({ data }: { data: CategoryAggregate[] }): JSX.Element {
             ></div>
             <div className="flex-1 min-w-0">
               <p className="font-semibold text-[var(--color-text)] text-sm">{segment.label}</p>
-              <p className="text-[var(--color-muted-text)] text-sm">{formatCurrency(segment.value)}</p>
+              <p className="text-[var(--color-muted-text)] text-xs font-mono">{formatCurrency(segment.value)}</p>
             </div>
           </div>
         ))}
@@ -120,11 +128,11 @@ function PieChartSimple({ data }: { data: CategoryAggregate[] }): JSX.Element {
   );
 }
 
-function LineChartSimple({ data }: { data: DateAggregate[] }): JSX.Element {
+function LineChartRefined({ data }: { data: DateAggregate[] }): JSX.Element {
   if (data.length === 0) {
     return (
-      <div className="flex items-center justify-center h-64 bg-gray-50 rounded-lg">
-        <p className="text-[var(--color-muted-text)]">No data available yet</p>
+      <div className="flex items-center justify-center h-64 bg-[var(--color-background)] rounded-lg">
+        <p className="text-[var(--color-muted-text)] text-sm">No data available yet</p>
       </div>
     );
   }
@@ -147,16 +155,35 @@ function LineChartSimple({ data }: { data: DateAggregate[] }): JSX.Element {
 
   const pathData = points.map((p, idx) => `${idx === 0 ? 'M' : 'L'} ${p.x} ${p.y}`).join(' ');
 
+  const gridLineColor = 'rgba(229, 225, 219, 0.4)';
+
   return (
-    <div className="space-y-6">
-      <svg viewBox="0 0 100 100" className="w-full aspect-square bg-white rounded border border-[var(--color-border)]">
+    <div className="space-y-4">
+      <svg viewBox="0 0 100 100" className="w-full aspect-square bg-white rounded-lg border border-[var(--color-border)]">
         <defs>
-          <linearGradient id="areaGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" style={{ stopColor: '#2BA89D', stopOpacity: 0.1 }} />
+          <linearGradient id="areaGradientRefined" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" style={{ stopColor: '#2BA89D', stopOpacity: 0.08 }} />
             <stop offset="100%" style={{ stopColor: '#2BA89D', stopOpacity: 0 }} />
           </linearGradient>
         </defs>
 
+        {/* Grid lines */}
+        {[0.25, 0.5, 0.75].map((fraction, idx) => {
+          const y = height - padding - fraction * chartHeight;
+          return (
+            <line
+              key={`gridH-${idx}`}
+              x1={padding}
+              y1={y}
+              x2={width - padding}
+              y2={y}
+              stroke={gridLineColor}
+              strokeWidth="0.3"
+            />
+          );
+        })}
+
+        {/* Axes */}
         <line
           x1={padding}
           y1={height - padding}
@@ -174,36 +201,49 @@ function LineChartSimple({ data }: { data: DateAggregate[] }): JSX.Element {
           strokeWidth="0.5"
         />
 
-        {data.map((item, idx) => {
-          const p = points[idx];
-          return (
-            <g key={idx}>
-              <text
-                x={p.x}
-                y={height - padding + 5}
-                fontSize="2.5"
-                textAnchor="middle"
-                fill="#747470"
-              >
-                {formatDateShort(item.date)}
-              </text>
-              <circle cx={p.x} cy={p.y} r="1" fill="#2BA89D" />
-            </g>
-          );
-        })}
-
-        <path d={pathData} stroke="#2BA89D" strokeWidth="1" fill="none" />
-
-        <text x={5} y={padding - 5} fontSize="2.5" fill="#747470">
+        {/* Y-axis labels */}
+        <text x={padding - 3} y={padding - 2} fontSize="2.5" textAnchor="end" fill="#747470">
           {formatCurrency(maxValue)}
         </text>
-        <text x={5} y={height - 3} fontSize="2.5" fill="#747470">
+        <text x={padding - 3} y={height - padding + 3} fontSize="2.5" textAnchor="end" fill="#747470">
           {formatCurrency(0)}
         </text>
+
+        {/* Area fill */}
+        <path
+          d={`${pathData} L ${points[points.length - 1].x} ${height - padding} Z`}
+          fill="url(#areaGradientRefined)"
+        />
+
+        {/* Line path */}
+        <path d={pathData} stroke="#2BA89D" strokeWidth="1.2" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+
+        {/* Data points and labels */}
+        {points.map((p, idx) => (
+          <g key={idx}>
+            <text
+              x={p.x}
+              y={height - padding + 6}
+              fontSize="2.5"
+              textAnchor="middle"
+              fill="#747470"
+            >
+              {formatDateShort(p.date)}
+            </text>
+            <circle
+              cx={p.x}
+              cy={p.y}
+              r="1.2"
+              fill="#2BA89D"
+              className="transition-all duration-200 cursor-pointer hover:r-2"
+              style={{ filter: 'drop-shadow(0 1px 2px rgba(26, 26, 24, 0.04))' }}
+            />
+          </g>
+        ))}
       </svg>
-      <div className="text-sm text-[var(--color-muted-text)]">
+      <div className="text-xs text-[var(--color-muted-text)] px-2">
         <p>
-          <strong className="text-[var(--color-text)]">Total:</strong> {formatCurrency(data.reduce((sum, d) => sum + d.total, 0))}
+          <span className="font-semibold text-[var(--color-text)]">Total Budgeted:</span> <span className="font-mono">{formatCurrency(data.reduce((sum, d) => sum + d.total, 0))}</span>
         </p>
       </div>
     </div>
@@ -215,19 +255,15 @@ export default function BudgetCharts({ budgets }: { budgets: Budget[] }): JSX.El
   const timeSeriesData = getTimeSeriesData(budgets);
 
   return (
-    <div className="bg-[var(--color-surface)] rounded-lg border border-[var(--color-border)] p-8 space-y-12" style={{ boxShadow: '0 2px 4px rgba(26,26,24,0.04)' }}>
-      <div>
+    <div className="space-y-12">
+      <div className="bg-[var(--color-surface)] rounded-lg border border-[var(--color-border)] p-8" style={{ boxShadow: '0 2px 4px rgba(26, 26, 24, 0.04)' }}>
         <h3 className="text-2xl font-bold text-[var(--color-primary)] mb-8">Budget by Category</h3>
-        <div className="w-full">
-          <PieChartSimple data={categoryData} />
-        </div>
+        <PieChartRefined data={categoryData} />
       </div>
 
-      <div>
+      <div className="bg-[var(--color-surface)] rounded-lg border border-[var(--color-border)] p-8" style={{ boxShadow: '0 2px 4px rgba(26, 26, 24, 0.04)' }}>
         <h3 className="text-2xl font-bold text-[var(--color-primary)] mb-8">Budget Over Time</h3>
-        <div className="w-full overflow-x-auto">
-          <LineChartSimple data={timeSeriesData} />
-        </div>
+        <LineChartRefined data={timeSeriesData} />
       </div>
     </div>
   );
