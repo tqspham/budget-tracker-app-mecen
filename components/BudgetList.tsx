@@ -46,30 +46,28 @@ export default function BudgetList({ budgets, isLoading, onEdit }: BudgetListPro
 
   return (
     <div className="overflow-x-auto">
-      <table className="w-full border-collapse">
+      <table className="w-full">
         <thead>
-          <tr className="border-b-2 border-[var(--color-border)] bg-gray-50">
-            <th className="text-left py-4 px-6 font-semibold text-[var(--color-text)]">Budget Name</th>
-            <th className="text-right py-4 px-6 font-semibold text-[var(--color-text)]">Allocated Amount</th>
-            <th className="text-left py-4 px-6 font-semibold text-[var(--color-text)]">Category</th>
-            <th className="text-left py-4 px-6 font-semibold text-[var(--color-text)]">Date</th>
-            <th className="text-right py-4 px-6 font-semibold text-[var(--color-text)]">Actions</th>
+          <tr className="border-b border-[var(--color-border)]">
+            <th className="text-left py-3 px-4 font-semibold text-[var(--color-text)]">Budget Name</th>
+            <th className="text-right py-3 px-4 font-semibold text-[var(--color-text)]">Allocated Amount</th>
+            <th className="text-left py-3 px-4 font-semibold text-[var(--color-text)]">Category</th>
+            <th className="text-left py-3 px-4 font-semibold text-[var(--color-text)]">Date</th>
+            <th className="text-right py-3 px-4 font-semibold text-[var(--color-text)]">Actions</th>
           </tr>
         </thead>
         <tbody>
           {budgets.map((budget) => (
-            <tr key={budget.id} className="border-b border-[var(--color-border)] hover:bg-gray-50 transition">
-              <td className="py-4 px-6 text-[var(--color-text)]">{budget.name}</td>
-              <td className="text-right py-4 px-6 text-[var(--color-text)] font-semibold">${budget.allocated_amount.toFixed(2)}</td>
-              <td className="py-4 px-6 text-[var(--color-text)]">{budget.category || 'Other'}</td>
-              <td className="py-4 px-6 text-[var(--color-text)]">{formatDate(budget.budget_date)}</td>
-              <td className="text-right py-4 px-6">
+            <tr key={budget.id} className="border-b border-[var(--color-border)] transition-colors duration-200 hover:bg-gray-50">
+              <td className="py-3 px-4 text-[var(--color-text)]">{budget.name}</td>
+              <td className="text-right py-3 px-4 text-[var(--color-text)] font-semibold">${budget.allocated_amount.toFixed(2)}</td>
+              <td className="py-3 px-4 text-[var(--color-text)]">{budget.category || 'Other'}</td>
+              <td className="py-3 px-4 text-[var(--color-text)]">{formatDate(budget.budget_date)}</td>
+              <td className="text-right py-3 px-4">
                 <div className="flex justify-end gap-2">
                   <button
                     onClick={() => onEdit(budget)}
-                    className="inline-flex items-center gap-1 bg-[var(--color-accent)] text-white py-1 px-3 rounded transition duration-200 text-sm font-medium"
-                    onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'var(--color-accent-hover)')}
-                    onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'var(--color-accent)')}
+                    className="inline-flex items-center gap-1 bg-[var(--color-accent)] text-white py-1 px-3 rounded transition-colors duration-200 text-sm font-medium hover:bg-[var(--color-accent-hover)] focus:outline-none focus:border-2 focus:border-[var(--color-accent)]"
                   >
                     <Edit2 size={16} />
                     Edit
@@ -77,9 +75,7 @@ export default function BudgetList({ budgets, isLoading, onEdit }: BudgetListPro
                   <button
                     onClick={() => handleDelete(budget.id)}
                     disabled={isDeleting}
-                    className="inline-flex items-center gap-1 bg-[var(--color-danger)] disabled:bg-gray-300 disabled:cursor-not-allowed text-white py-1 px-3 rounded transition duration-200 text-sm font-medium"
-                    onMouseEnter={(e) => !isDeleting && (e.currentTarget.style.backgroundColor = 'var(--color-danger-hover)')}
-                    onMouseLeave={(e) => !isDeleting && (e.currentTarget.style.backgroundColor = 'var(--color-danger)')}
+                    className="inline-flex items-center gap-1 bg-[var(--color-danger)] disabled:bg-gray-300 disabled:cursor-not-allowed text-white py-1 px-3 rounded transition-colors duration-200 text-sm font-medium hover:bg-[var(--color-danger-hover)] focus:outline-none focus:border-2 focus:border-[var(--color-danger)]"
                   >
                     <Trash2 size={16} />
                     Delete

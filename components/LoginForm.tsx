@@ -64,16 +64,16 @@ export default function LoginForm({ onSignupClick }: LoginFormProps) {
   };
 
   return (
-    <div className="w-full max-w-md bg-[var(--color-surface)] rounded-lg border border-[var(--color-border)] p-8" style={{ boxShadow: '0 2px 4px rgba(26,26,24,0.04)' }}>
-      <h2 className="text-2xl font-bold text-[var(--color-primary)] mb-8 text-center">Login</h2>
+    <div className="w-full max-w-md bg-[var(--color-surface)] rounded-lg border border-[var(--color-border)] p-8 card">
+      <h2 className="text-2xl font-semibold text-[var(--color-primary)] mb-8 text-center">Login</h2>
 
       {error && (
-        <div className="mb-6 p-4 bg-[var(--color-danger)] border border-[var(--color-danger)] text-[var(--color-danger)] rounded text-sm" style={{ backgroundColor: 'rgba(168, 74, 61, 0.1)' }}>
+        <div className="mb-6 p-4 bg-opacity-10 border-l-4 border-[var(--color-danger)] text-[var(--color-danger)] rounded text-sm" style={{ backgroundColor: 'rgba(168, 74, 61, 0.08)' }}>
           {error}
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="space-y-6">
+      <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label htmlFor="email" className="block text-sm font-semibold text-[var(--color-text)] mb-2">
             Email
@@ -84,7 +84,7 @@ export default function LoginForm({ onSignupClick }: LoginFormProps) {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             disabled={loading}
-            className="w-full px-4 py-2 border border-[var(--color-border)] rounded-lg focus:outline-none focus:border-[var(--color-accent)] focus:border-2 disabled:bg-gray-100 disabled:cursor-not-allowed transition-all duration-200"
+            className="w-full px-4 py-2 border border-[var(--color-border)] rounded-lg focus:outline-none focus:border-[var(--color-accent)] focus:border-2 disabled:bg-gray-50 disabled:cursor-not-allowed transition-all duration-200"
             placeholder="you@example.com"
           />
         </div>
@@ -99,7 +99,7 @@ export default function LoginForm({ onSignupClick }: LoginFormProps) {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             disabled={loading}
-            className="w-full px-4 py-2 border border-[var(--color-border)] rounded-lg focus:outline-none focus:border-[var(--color-accent)] focus:border-2 disabled:bg-gray-100 disabled:cursor-not-allowed transition-all duration-200"
+            className="w-full px-4 py-2 border border-[var(--color-border)] rounded-lg focus:outline-none focus:border-[var(--color-accent)] focus:border-2 disabled:bg-gray-50 disabled:cursor-not-allowed transition-all duration-200"
             placeholder="••••••••"
           />
         </div>
@@ -107,10 +107,7 @@ export default function LoginForm({ onSignupClick }: LoginFormProps) {
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-[var(--color-accent)] text-white font-semibold py-2 px-4 rounded-lg transition duration-200 disabled:bg-gray-300 disabled:cursor-not-allowed"
-          style={loading ? {} : { cursor: 'pointer' }}
-          onMouseEnter={(e) => !loading && (e.currentTarget.style.backgroundColor = 'var(--color-accent-hover)')}
-          onMouseLeave={(e) => !loading && (e.currentTarget.style.backgroundColor = 'var(--color-accent)')}
+          className="w-full bg-[var(--color-accent)] text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-200 disabled:bg-gray-300 disabled:cursor-not-allowed hover:bg-[var(--color-accent-hover)] focus:outline-none focus:border-2 focus:border-[var(--color-accent)]"
         >
           {loading ? 'Logging in...' : 'Login'}
         </button>
@@ -121,9 +118,7 @@ export default function LoginForm({ onSignupClick }: LoginFormProps) {
         <button
           onClick={onSignupClick}
           disabled={loading}
-          className="text-[var(--color-accent)] font-semibold disabled:cursor-not-allowed transition-colors duration-200"
-          onMouseEnter={(e) => !loading && (e.currentTarget.style.color = 'var(--color-primary)')}
-          onMouseLeave={(e) => !loading && (e.currentTarget.style.color = 'var(--color-accent)')}
+          className="text-[var(--color-accent)] font-semibold disabled:cursor-not-allowed transition-colors duration-200 hover:text-[var(--color-primary)]"
         >
           Sign up
         </button>

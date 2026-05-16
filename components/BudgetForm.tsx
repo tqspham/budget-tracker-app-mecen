@@ -92,18 +92,18 @@ export default function BudgetForm({ budget, onClose }: BudgetFormProps) {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center p-4 z-50">
-      <div className="bg-[var(--color-surface)] rounded-lg border border-[var(--color-border)] max-w-md w-full p-8" style={{ boxShadow: '0 2px 4px rgba(26,26,24,0.04)' }}>
-        <h2 className="text-2xl font-bold text-[var(--color-primary)] mb-8">
+      <div className="bg-[var(--color-surface)] rounded-lg border border-[var(--color-border)] max-w-md w-full p-8 card">
+        <h2 className="text-2xl font-semibold text-[var(--color-primary)] mb-8">
           {budget ? 'Edit Budget' : 'Add New Budget'}
         </h2>
 
         {localError && (
-          <div className="mb-6 p-4 bg-[var(--color-danger)] border border-[var(--color-danger)] text-[var(--color-danger)] rounded text-sm" style={{ backgroundColor: 'rgba(168, 74, 61, 0.1)' }}>
+          <div className="mb-6 p-4 bg-opacity-10 border-l-4 border-[var(--color-danger)] text-[var(--color-danger)] rounded text-sm message-error">
             {localError}
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label htmlFor="name" className="block text-sm font-semibold text-[var(--color-text)] mb-2">
               Budget Name
@@ -114,7 +114,7 @@ export default function BudgetForm({ budget, onClose }: BudgetFormProps) {
               value={name}
               onChange={(e) => setName(e.target.value)}
               disabled={isLoading}
-              className="w-full px-4 py-2 border border-[var(--color-border)] rounded-lg focus:outline-none focus:border-[var(--color-accent)] focus:border-2 disabled:bg-gray-100 disabled:cursor-not-allowed transition-all duration-200"
+              className="w-full px-4 py-2 border border-[var(--color-border)] rounded-lg focus:outline-none focus:border-[var(--color-accent)] focus:border-2 disabled:bg-gray-50 disabled:cursor-not-allowed transition-all duration-200"
               placeholder="e.g., Groceries"
             />
           </div>
@@ -131,7 +131,7 @@ export default function BudgetForm({ budget, onClose }: BudgetFormProps) {
               disabled={isLoading}
               step="0.01"
               min="0"
-              className="w-full px-4 py-2 border border-[var(--color-border)] rounded-lg focus:outline-none focus:border-[var(--color-accent)] focus:border-2 disabled:bg-gray-100 disabled:cursor-not-allowed transition-all duration-200"
+              className="w-full px-4 py-2 border border-[var(--color-border)] rounded-lg focus:outline-none focus:border-[var(--color-accent)] focus:border-2 disabled:bg-gray-50 disabled:cursor-not-allowed transition-all duration-200"
               placeholder="0.00"
             />
           </div>
@@ -145,7 +145,7 @@ export default function BudgetForm({ budget, onClose }: BudgetFormProps) {
               value={category}
               onChange={(e) => setCategory(e.target.value)}
               disabled={isLoading}
-              className="w-full px-4 py-2 border border-[var(--color-border)] rounded-lg focus:outline-none focus:border-[var(--color-accent)] focus:border-2 disabled:bg-gray-100 disabled:cursor-not-allowed transition-all duration-200"
+              className="w-full px-4 py-2 border border-[var(--color-border)] rounded-lg focus:outline-none focus:border-[var(--color-accent)] focus:border-2 disabled:bg-gray-50 disabled:cursor-not-allowed transition-all duration-200"
             >
               {BUDGET_CATEGORIES.map((cat) => (
                 <option key={cat} value={cat}>
@@ -165,7 +165,7 @@ export default function BudgetForm({ budget, onClose }: BudgetFormProps) {
               value={budgetDate}
               onChange={(e) => setBudgetDate(e.target.value)}
               disabled={isLoading}
-              className="w-full px-4 py-2 border border-[var(--color-border)] rounded-lg focus:outline-none focus:border-[var(--color-accent)] focus:border-2 disabled:bg-gray-100 disabled:cursor-not-allowed transition-all duration-200"
+              className="w-full px-4 py-2 border border-[var(--color-border)] rounded-lg focus:outline-none focus:border-[var(--color-accent)] focus:border-2 disabled:bg-gray-50 disabled:cursor-not-allowed transition-all duration-200"
             />
           </div>
 
@@ -173,9 +173,7 @@ export default function BudgetForm({ budget, onClose }: BudgetFormProps) {
             <button
               type="submit"
               disabled={isLoading}
-              className="flex-1 bg-[var(--color-accent)] disabled:bg-gray-300 disabled:cursor-not-allowed text-white font-semibold py-2 px-4 rounded-lg transition duration-200"
-              onMouseEnter={(e) => !isLoading && (e.currentTarget.style.backgroundColor = 'var(--color-accent-hover)')}
-              onMouseLeave={(e) => !isLoading && (e.currentTarget.style.backgroundColor = 'var(--color-accent)')}
+              className="flex-1 bg-[var(--color-accent)] disabled:bg-gray-300 disabled:cursor-not-allowed text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-200 hover:bg-[var(--color-accent-hover)] focus:outline-none focus:border-2 focus:border-[var(--color-accent)]"
             >
               {isLoading ? (budget ? 'Updating...' : 'Creating...') : (budget ? 'Update' : 'Create')}
             </button>
@@ -183,9 +181,7 @@ export default function BudgetForm({ budget, onClose }: BudgetFormProps) {
               type="button"
               onClick={onClose}
               disabled={isLoading}
-              className="flex-1 border border-[var(--color-border)] text-[var(--color-text)] disabled:bg-gray-100 disabled:cursor-not-allowed font-semibold py-2 px-4 rounded-lg transition duration-200"
-              onMouseEnter={(e) => !isLoading && (e.currentTarget.style.backgroundColor = '#f3f3f1')}
-              onMouseLeave={(e) => !isLoading && (e.currentTarget.style.backgroundColor = 'transparent')}
+              className="flex-1 border border-[var(--color-border)] text-[var(--color-text)] disabled:bg-gray-50 disabled:cursor-not-allowed font-semibold py-2 px-4 rounded-lg transition-colors duration-200 hover:bg-gray-50 focus:outline-none focus:border-2 focus:border-[var(--color-accent)]"
             >
               Cancel
             </button>

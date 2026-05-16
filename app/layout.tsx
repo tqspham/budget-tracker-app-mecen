@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Budget Tracker",
-  description: "A modern, minimalist financial budgeting application for personal money management",
+  title: "Budget Tracker — Mindful Financial Management",
+  description: "A calm, minimalist financial budgeting application for mindful personal money management. Track budgets by category, visualize spending patterns, and manage your finances with intention and clarity.",
 };
 
 export default function RootLayout({

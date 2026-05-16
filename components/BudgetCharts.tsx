@@ -62,9 +62,8 @@ function PieChartRefined({ data }: { data: CategoryAggregate[] }): JSX.Element {
   const colors = [
     '#2BA89D',
     '#6B8E8A',
-    '#0F5E5A',
+    '#747470',
     '#C8944C',
-    '#3B8F6C',
   ];
 
   let cumulativePercent = 0;
@@ -98,13 +97,13 @@ function PieChartRefined({ data }: { data: CategoryAggregate[] }): JSX.Element {
     <div className="flex flex-col items-center space-y-6">
       <svg viewBox="0 0 100 100" className="w-full max-w-xs aspect-square">
         {segments.map((segment, idx) => (
-          <g key={idx} className="chart-segment" style={{ opacity: 0, animation: `fadeInSegment 0.4s ease-out ${idx * 0.08}s forwards` }}>
+          <g key={idx} style={{ opacity: 0, animation: `fadeInSegment 0.4s ease-out ${idx * 0.08}s forwards` }}>
             <path
               d={segment.path}
               fill={segment.color}
               stroke="white"
               strokeWidth="0.5"
-              className="transition-transform duration-200 cursor-pointer hover:scale-105"
+              className="transition-transform duration-200 cursor-pointer hover:opacity-80"
               style={{ transformOrigin: '50px 50px', transformBox: 'fill-box' }}
             />
           </g>
@@ -116,7 +115,7 @@ function PieChartRefined({ data }: { data: CategoryAggregate[] }): JSX.Element {
             <div
               className="w-3 h-3 rounded-full flex-shrink-0"
               style={{ backgroundColor: segment.color }}
-            ></div>
+            />
             <div className="flex-1 min-w-0">
               <p className="font-semibold text-[var(--color-text)] text-sm">{segment.label}</p>
               <p className="text-[var(--color-muted-text)] text-xs font-mono">{formatCurrency(segment.value)}</p>
@@ -155,7 +154,7 @@ function LineChartRefined({ data }: { data: DateAggregate[] }): JSX.Element {
 
   const pathData = points.map((p, idx) => `${idx === 0 ? 'M' : 'L'} ${p.x} ${p.y}`).join(' ');
 
-  const gridLineColor = 'rgba(229, 225, 219, 0.4)';
+  const gridLineColor = 'rgba(229, 225, 219, 0.3)';
 
   return (
     <div className="space-y-4 h-full flex flex-col">
@@ -189,7 +188,7 @@ function LineChartRefined({ data }: { data: DateAggregate[] }): JSX.Element {
           y1={height - padding}
           x2={width - padding}
           y2={height - padding}
-          stroke="#E5E1DB"
+          stroke="var(--color-border)"
           strokeWidth="0.5"
         />
         <line
@@ -197,15 +196,15 @@ function LineChartRefined({ data }: { data: DateAggregate[] }): JSX.Element {
           y1={height - padding}
           x2={padding}
           y2={padding}
-          stroke="#E5E1DB"
+          stroke="var(--color-border)"
           strokeWidth="0.5"
         />
 
         {/* Y-axis labels */}
-        <text x={padding - 3} y={padding - 2} fontSize="2.5" textAnchor="end" fill="#747470">
+        <text x={padding - 3} y={padding - 2} fontSize="2.5" textAnchor="end" fill="var(--color-muted-text)">
           {formatCurrency(maxValue)}
         </text>
-        <text x={padding - 3} y={height - padding + 3} fontSize="2.5" textAnchor="end" fill="#747470">
+        <text x={padding - 3} y={height - padding + 3} fontSize="2.5" textAnchor="end" fill="var(--color-muted-text)">
           {formatCurrency(0)}
         </text>
 
@@ -226,7 +225,7 @@ function LineChartRefined({ data }: { data: DateAggregate[] }): JSX.Element {
               y={height - padding + 6}
               fontSize="2.5"
               textAnchor="middle"
-              fill="#747470"
+              fill="var(--color-muted-text)"
             >
               {formatDateShort(p.date)}
             </text>
@@ -235,7 +234,7 @@ function LineChartRefined({ data }: { data: DateAggregate[] }): JSX.Element {
               cy={p.y}
               r="1.2"
               fill="#2BA89D"
-              className="transition-all duration-200 cursor-pointer hover:r-2"
+              className="transition-all duration-200 cursor-pointer hover:opacity-80"
               style={{ filter: 'drop-shadow(0 1px 2px rgba(26, 26, 24, 0.04))' }}
             />
           </g>
@@ -257,14 +256,14 @@ export default function BudgetCharts({ budgets }: { budgets: Budget[] }): JSX.El
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
       {/* Budget by Category - Left Column (1/3 width on desktop) */}
-      <div className="bg-[var(--color-surface)] rounded-lg border border-[var(--color-border)] p-8 flex flex-col items-center" style={{ boxShadow: '0 2px 4px rgba(26, 26, 24, 0.04)' }}>
-        <h3 className="text-2xl font-bold text-[var(--color-primary)] mb-8">Budget by Category</h3>
+      <div className="bg-[var(--color-surface)] rounded-lg border border-[var(--color-border)] p-8 flex flex-col items-center card">
+        <h3 className="text-2xl font-semibold text-[var(--color-primary)] mb-8">Budget by Category</h3>
         <PieChartRefined data={categoryData} />
       </div>
 
       {/* Budget Over Time - Right Column (2/3 width on desktop) */}
-      <div className="md:col-span-2 bg-[var(--color-surface)] rounded-lg border border-[var(--color-border)] p-8 flex flex-col" style={{ boxShadow: '0 2px 4px rgba(26, 26, 24, 0.04)' }}>
-        <h3 className="text-2xl font-bold text-[var(--color-primary)] mb-8">Budget Over Time</h3>
+      <div className="md:col-span-2 bg-[var(--color-surface)] rounded-lg border border-[var(--color-border)] p-8 flex flex-col card">
+        <h3 className="text-2xl font-semibold text-[var(--color-primary)] mb-8">Budget Over Time</h3>
         <LineChartRefined data={timeSeriesData} />
       </div>
     </div>

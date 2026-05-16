@@ -30,9 +30,7 @@ export default function LogoutButton() {
     <button
       onClick={handleLogout}
       disabled={loading}
-      className="border border-[var(--color-border)] disabled:bg-gray-100 disabled:cursor-not-allowed text-[var(--color-text)] font-semibold py-2 px-4 rounded-lg transition duration-200"
-      onMouseEnter={(e) => !loading && (e.currentTarget.style.backgroundColor = '#f3f3f1')}
-      onMouseLeave={(e) => !loading && (e.currentTarget.style.backgroundColor = 'transparent')}
+      className="border border-[var(--color-border)] disabled:bg-gray-50 disabled:cursor-not-allowed text-[var(--color-text)] font-semibold py-2 px-4 rounded-lg transition-colors duration-200 hover:bg-gray-50 focus:outline-none focus:border-2 focus:border-[var(--color-accent)]"
     >
       {loading ? 'Logging out...' : 'Logout'}
     </button>

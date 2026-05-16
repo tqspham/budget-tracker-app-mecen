@@ -56,21 +56,21 @@ export default function Dashboard() {
   return (
     <div className="space-y-8">
       {successMessage && (
-        <div className="p-4 bg-[var(--color-success)] bg-opacity-10 border border-[var(--color-success)] text-[var(--color-success)] rounded text-sm message-success">
+        <div className="p-4 bg-opacity-10 border-l-4 border-[var(--color-success)] text-[var(--color-success)] rounded text-sm message-success">
           {successMessage}
         </div>
       )}
       {error && (
-        <div className="p-4 bg-[var(--color-danger)] bg-opacity-10 border border-[var(--color-danger)] text-[var(--color-danger)] rounded text-sm message-error">
+        <div className="p-4 bg-opacity-10 border-l-4 border-[var(--color-danger)] text-[var(--color-danger)] rounded text-sm message-error">
           {error}
         </div>
       )}
 
       <BudgetCharts budgets={budgets} />
 
-      <div className="bg-[var(--color-surface)] rounded-lg border border-[var(--color-border)] p-8" style={{ boxShadow: '0 2px 4px rgba(26,26,24,0.04)' }}>
+      <div className="bg-[var(--color-surface)] rounded-lg border border-[var(--color-border)] p-8 card">
         <div className="flex justify-between items-center mb-8">
-          <h2 className="text-3xl font-bold text-[var(--color-primary)]">Your Budgets</h2>
+          <h2 className="text-3xl font-semibold text-[var(--color-primary)]">Your Budgets</h2>
           <AddBudgetButton onClick={handleOpenForm} disabled={showForm} />
         </div>
 

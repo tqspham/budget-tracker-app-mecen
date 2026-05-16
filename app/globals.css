@@ -2,7 +2,7 @@
 
 @layer base {
   :root {
-    /* Palette */
+    /* Palette - Earth-toned, calm, minimalist */
     --color-background: #FAFAF8;
     --color-surface: #FFFFFF;
     --color-primary: #0F5E5A;
@@ -17,9 +17,13 @@
     --color-danger: #A84A3D;
     --color-danger-hover: #935d52;
 
-    /* Chart-specific spacing */
+    /* Chart-specific spacing and colors */
     --chart-padding: 2rem;
     --chart-gap: 1rem;
+    --chart-color-primary: #2BA89D;
+    --chart-color-secondary: #6B8E8A;
+    --chart-color-tertiary: #747470;
+    --chart-color-accent: #C8944C;
 
     /* Typography */
     --font-family-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter", "Helvetica Neue", sans-serif;
@@ -45,26 +49,30 @@
     @apply bg-[var(--color-background)] text-[var(--color-text)];
   }
 
-  /* Typography hierarchy */
+  /* Typography hierarchy - gentle, calm */
   h1, h2, h3, h4, h5, h6 {
-    @apply font-bold text-[var(--color-primary)];
+    @apply font-semibold text-[var(--color-primary)];
     line-height: 1.3;
   }
 
   h1 {
     @apply text-4xl;
+    font-weight: 600;
   }
 
   h2 {
     @apply text-3xl;
+    font-weight: 600;
   }
 
   h3 {
-    @apply text-2xl font-semibold;
+    @apply text-2xl;
+    font-weight: 600;
   }
 
   h4 {
-    @apply text-xl font-semibold;
+    @apply text-xl;
+    font-weight: 600;
   }
 
   /* Body and form text */
@@ -73,7 +81,7 @@
     line-height: 1.6;
   }
 
-  /* Form input styling */
+  /* Form input styling - calm, minimalist */
   input[type="text"],
   input[type="email"],
   input[type="password"],
@@ -94,7 +102,7 @@
   input:disabled,
   textarea:disabled,
   select:disabled {
-    @apply bg-gray-100 cursor-not-allowed;
+    @apply bg-gray-50 cursor-not-allowed;
   }
 
   /* Button base */
@@ -109,22 +117,26 @@
 }
 
 @layer components {
-  /* Primary button */
+  /* Primary button - calm, soft rounded */
   .btn-primary {
-    @apply bg-[var(--color-accent)] text-white font-medium py-2 px-4 rounded-lg transition duration-200;
+    @apply bg-[var(--color-accent)] text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-200;
   }
 
   .btn-primary:hover {
-    background-color: var(--color-accent-hover);
+    @apply bg-[var(--color-accent-hover)];
   }
 
   .btn-primary:disabled {
     @apply bg-gray-300 cursor-not-allowed opacity-50;
   }
 
-  /* Secondary button */
+  .btn-primary:focus {
+    @apply outline-none border-2 border-[var(--color-accent)];
+  }
+
+  /* Secondary button - border only, minimal */
   .btn-secondary {
-    @apply border border-[var(--color-border)] text-[var(--color-text)] font-medium py-2 px-4 rounded-lg transition duration-200;
+    @apply border border-[var(--color-border)] text-[var(--color-text)] font-semibold py-2 px-4 rounded-lg transition-colors duration-200;
   }
 
   .btn-secondary:hover {
@@ -132,50 +144,69 @@
   }
 
   .btn-secondary:disabled {
-    @apply bg-gray-100 cursor-not-allowed opacity-50;
+    @apply bg-gray-50 cursor-not-allowed opacity-50;
   }
 
-  /* Danger button */
+  .btn-secondary:focus {
+    @apply outline-none border-2 border-[var(--color-accent)];
+  }
+
+  /* Danger button - warm, muted */
   .btn-danger {
-    @apply bg-[var(--color-danger)] text-white font-medium py-2 px-4 rounded-lg transition duration-200;
+    @apply bg-[var(--color-danger)] text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-200;
   }
 
   .btn-danger:hover {
-    background-color: var(--color-danger-hover);
+    @apply bg-[var(--color-danger-hover)];
   }
 
   .btn-danger:disabled {
     @apply bg-gray-300 cursor-not-allowed opacity-50;
   }
 
-  /* Card styling */
+  .btn-danger:focus {
+    @apply outline-none border-2 border-[var(--color-danger)];
+  }
+
+  /* Card styling - minimal shadow, breathing room */
   .card {
     @apply bg-[var(--color-surface)] border border-[var(--color-border)] rounded-lg;
     box-shadow: 0 2px 4px rgba(26, 26, 24, 0.04);
   }
 
-  /* Success message */
+  /* Success message - semantic, minimal */
   .message-success {
-    @apply p-4 border border-[var(--color-success)] text-[var(--color-success)] rounded;
-    background-color: rgba(59, 143, 108, 0.1);
-    animation: slideInDown 0.3s ease-out;
+    @apply p-4 border-l-4 border-[var(--color-success)] text-[var(--color-success)] rounded;
+    background-color: rgba(59, 143, 108, 0.08);
+    animation: fadeInMessage 0.3s ease-out;
   }
 
-  /* Error message */
+  /* Error message - semantic, minimal */
   .message-error {
-    @apply p-4 border border-[var(--color-danger)] text-[var(--color-danger)] rounded;
-    background-color: rgba(168, 74, 61, 0.1);
-    animation: slideInDown 0.3s ease-out;
+    @apply p-4 border-l-4 border-[var(--color-danger)] text-[var(--color-danger)] rounded;
+    background-color: rgba(168, 74, 61, 0.08);
+    animation: fadeInMessage 0.3s ease-out;
   }
 
-  @keyframes slideInDown {
+  @keyframes fadeInMessage {
     from {
       opacity: 0;
-      transform: translateY(-2px);
+      transform: translateY(-4px);
     }
     to {
       opacity: 1;
       transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeOutMessage {
+    from {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    to {
+      opacity: 0;
+      transform: translateY(-4px);
     }
   }
 
@@ -189,12 +220,7 @@
     }
   }
 
-  /* Chart hover interaction */
-  .chart-segment {
-    transform-origin: 50px 50px;
-  }
-
-  /* Spinner animation */
+  /* Spinner animation - calm, steady */
   .spinner-calm {
     animation: spin 2s linear infinite;
   }
@@ -206,5 +232,26 @@
     to {
       transform: rotate(360deg);
     }
+  }
+
+  /* Table styling - minimal borders, breathing room */
+  table {
+    @apply w-full border-collapse;
+  }
+
+  thead {
+    @apply bg-gray-50;
+  }
+
+  thead th {
+    @apply text-left py-3 px-4 font-semibold text-[var(--color-text)] border-b border-[var(--color-border)];
+  }
+
+  tbody tr {
+    @apply border-b border-[var(--color-border)] transition-colors duration-200 hover:bg-gray-50;
+  }
+
+  tbody td {
+    @apply py-3 px-4 text-[var(--color-text)];
   }
 }
