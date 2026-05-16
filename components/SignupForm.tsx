@@ -68,7 +68,7 @@ export default function SignupForm({ onLoginClick }: SignupFormProps) {
       <h2 className="text-2xl font-bold text-[var(--color-primary)] mb-8 text-center">Sign Up</h2>
 
       {error && (
-        <div className="mb-6 p-4 bg-[var(--color-danger)] bg-opacity-10 border border-[var(--color-danger)] text-[var(--color-danger)] rounded text-sm">
+        <div className="mb-6 p-4 bg-[var(--color-danger)] border border-[var(--color-danger)] text-[var(--color-danger)] rounded text-sm" style={{ backgroundColor: 'rgba(168, 74, 61, 0.1)' }}>
           {error}
         </div>
       )}
@@ -107,7 +107,10 @@ export default function SignupForm({ onLoginClick }: SignupFormProps) {
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-[var(--color-accent)] hover:bg-opacity-90 disabled:bg-gray-300 disabled:cursor-not-allowed text-white font-semibold py-2 px-4 rounded-lg transition duration-200"
+          className="w-full bg-[var(--color-accent)] text-white font-semibold py-2 px-4 rounded-lg transition duration-200 disabled:bg-gray-300 disabled:cursor-not-allowed"
+          style={loading ? {} : { cursor: 'pointer' }}
+          onMouseEnter={(e) => !loading && (e.currentTarget.style.backgroundColor = 'var(--color-accent-hover)')}
+          onMouseLeave={(e) => !loading && (e.currentTarget.style.backgroundColor = 'var(--color-accent)')}
         >
           {loading ? 'Signing up...' : 'Sign Up'}
         </button>
@@ -118,7 +121,9 @@ export default function SignupForm({ onLoginClick }: SignupFormProps) {
         <button
           onClick={onLoginClick}
           disabled={loading}
-          className="text-[var(--color-accent)] hover:text-[var(--color-primary)] font-semibold disabled:cursor-not-allowed transition-colors duration-200"
+          className="text-[var(--color-accent)] font-semibold disabled:cursor-not-allowed transition-colors duration-200"
+          onMouseEnter={(e) => !loading && (e.currentTarget.style.color = 'var(--color-primary)')}
+          onMouseLeave={(e) => !loading && (e.currentTarget.style.color = 'var(--color-accent)')}
         >
           Login
         </button>

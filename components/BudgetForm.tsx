@@ -98,7 +98,7 @@ export default function BudgetForm({ budget, onClose }: BudgetFormProps) {
         </h2>
 
         {localError && (
-          <div className="mb-6 p-4 bg-[var(--color-danger)] bg-opacity-10 border border-[var(--color-danger)] text-[var(--color-danger)] rounded text-sm">
+          <div className="mb-6 p-4 bg-[var(--color-danger)] border border-[var(--color-danger)] text-[var(--color-danger)] rounded text-sm" style={{ backgroundColor: 'rgba(168, 74, 61, 0.1)' }}>
             {localError}
           </div>
         )}
@@ -173,7 +173,9 @@ export default function BudgetForm({ budget, onClose }: BudgetFormProps) {
             <button
               type="submit"
               disabled={isLoading}
-              className="flex-1 bg-[var(--color-accent)] hover:bg-opacity-90 disabled:bg-gray-300 disabled:cursor-not-allowed text-white font-semibold py-2 px-4 rounded-lg transition duration-200"
+              className="flex-1 bg-[var(--color-accent)] disabled:bg-gray-300 disabled:cursor-not-allowed text-white font-semibold py-2 px-4 rounded-lg transition duration-200"
+              onMouseEnter={(e) => !isLoading && (e.currentTarget.style.backgroundColor = 'var(--color-accent-hover)')}
+              onMouseLeave={(e) => !isLoading && (e.currentTarget.style.backgroundColor = 'var(--color-accent)')}
             >
               {isLoading ? (budget ? 'Updating...' : 'Creating...') : (budget ? 'Update' : 'Create')}
             </button>
@@ -181,7 +183,9 @@ export default function BudgetForm({ budget, onClose }: BudgetFormProps) {
               type="button"
               onClick={onClose}
               disabled={isLoading}
-              className="flex-1 border border-[var(--color-border)] text-[var(--color-text)] hover:bg-gray-50 disabled:bg-gray-100 disabled:cursor-not-allowed font-semibold py-2 px-4 rounded-lg transition duration-200"
+              className="flex-1 border border-[var(--color-border)] text-[var(--color-text)] disabled:bg-gray-100 disabled:cursor-not-allowed font-semibold py-2 px-4 rounded-lg transition duration-200"
+              onMouseEnter={(e) => !isLoading && (e.currentTarget.style.backgroundColor = '#f3f3f1')}
+              onMouseLeave={(e) => !isLoading && (e.currentTarget.style.backgroundColor = 'transparent')}
             >
               Cancel
             </button>

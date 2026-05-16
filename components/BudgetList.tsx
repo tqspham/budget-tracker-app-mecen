@@ -67,7 +67,9 @@ export default function BudgetList({ budgets, isLoading, onEdit }: BudgetListPro
                 <div className="flex justify-end gap-2">
                   <button
                     onClick={() => onEdit(budget)}
-                    className="inline-flex items-center gap-1 bg-[var(--color-accent)] hover:bg-opacity-90 text-white py-1 px-3 rounded transition duration-200 text-sm font-medium"
+                    className="inline-flex items-center gap-1 bg-[var(--color-accent)] text-white py-1 px-3 rounded transition duration-200 text-sm font-medium"
+                    onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'var(--color-accent-hover)')}
+                    onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'var(--color-accent)')}
                   >
                     <Edit2 size={16} />
                     Edit
@@ -75,7 +77,9 @@ export default function BudgetList({ budgets, isLoading, onEdit }: BudgetListPro
                   <button
                     onClick={() => handleDelete(budget.id)}
                     disabled={isDeleting}
-                    className="inline-flex items-center gap-1 bg-[var(--color-danger)] hover:bg-opacity-90 disabled:bg-gray-300 disabled:cursor-not-allowed text-white py-1 px-3 rounded transition duration-200 text-sm font-medium"
+                    className="inline-flex items-center gap-1 bg-[var(--color-danger)] disabled:bg-gray-300 disabled:cursor-not-allowed text-white py-1 px-3 rounded transition duration-200 text-sm font-medium"
+                    onMouseEnter={(e) => !isDeleting && (e.currentTarget.style.backgroundColor = 'var(--color-danger-hover)')}
+                    onMouseLeave={(e) => !isDeleting && (e.currentTarget.style.backgroundColor = 'var(--color-danger)')}
                   >
                     <Trash2 size={16} />
                     Delete

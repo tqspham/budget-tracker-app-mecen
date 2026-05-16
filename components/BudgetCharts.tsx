@@ -162,7 +162,7 @@ function LineChartSimple({ data }: { data: DateAggregate[] }): JSX.Element {
           y1={height - padding}
           x2={width - padding}
           y2={height - padding}
-          stroke="var(--color-border)"
+          stroke="#E5E1DB"
           strokeWidth="0.5"
         />
         <line
@@ -170,7 +170,7 @@ function LineChartSimple({ data }: { data: DateAggregate[] }): JSX.Element {
           y1={height - padding}
           x2={padding}
           y2={padding}
-          stroke="var(--color-border)"
+          stroke="#E5E1DB"
           strokeWidth="0.5"
         />
 
@@ -183,7 +183,7 @@ function LineChartSimple({ data }: { data: DateAggregate[] }): JSX.Element {
                 y={height - padding + 5}
                 fontSize="2.5"
                 textAnchor="middle"
-                fill="var(--color-muted-text)"
+                fill="#747470"
               >
                 {formatDateShort(item.date)}
               </text>
@@ -194,10 +194,10 @@ function LineChartSimple({ data }: { data: DateAggregate[] }): JSX.Element {
 
         <path d={pathData} stroke="#2BA89D" strokeWidth="1" fill="none" />
 
-        <text x={5} y={padding - 5} fontSize="2.5" fill="var(--color-muted-text)">
+        <text x={5} y={padding - 5} fontSize="2.5" fill="#747470">
           {formatCurrency(maxValue)}
         </text>
-        <text x={5} y={height - 3} fontSize="2.5" fill="var(--color-muted-text)">
+        <text x={5} y={height - 3} fontSize="2.5" fill="#747470">
           {formatCurrency(0)}
         </text>
       </svg>
